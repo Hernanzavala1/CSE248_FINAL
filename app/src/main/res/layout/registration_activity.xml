@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/passwordPrompt"
+        android:layout_width="130dp"
+        android:layout_height="41dp"
+
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="132dp"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="textPersonName"
+        android:text="Password:"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/userName3"
+        android:layout_width="241dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/UserNamePrompt"
+        android:layout_below="@id/ResgistrationText"
+        android:layout_toRightOf="@+id/UserNamePrompt"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/userName2"
+        android:layout_width="241dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/UserNamePrompt"
+        android:layout_below="@id/ResgistrationText"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/EmailPrompt"
+        android:layout_width="130dp"
+        android:layout_height="41dp"
+
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="197dp"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="textPersonName"
+        android:text="Email:"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/ResgistrationText"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="17dp"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="textPersonName"
+        android:padding="5dp"
+        android:text="Registration"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/UserNamePrompt"
+        android:layout_width="130dp"
+        android:layout_height="41dp"
+
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="68dp"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="textPersonName"
+        android:text="User Name:"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/UserName"
+        android:layout_width="241dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/ResgistrationText"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/UserNamePrompt"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/Password"
+        android:layout_width="241dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/UserName"
+        android:layout_below="@+id/UserName"
+        android:layout_marginTop="133dp"
+        android:layout_toRightOf="@+id/passwordPrompt"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/Email"
+        android:layout_width="241dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/UserName"
+        android:layout_alignTop="@+id/EmailPrompt"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress" />
+
+</RelativeLayout>
