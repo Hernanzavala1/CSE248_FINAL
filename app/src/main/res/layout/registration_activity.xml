@@ -50,7 +50,7 @@
         android:ems="10"
         android:gravity="center"
         android:hint="User Name"
-        android:textColorHint="Black"
+        android:textColorHint="@android:color/black"
         android:inputType="textPersonName" />
 
     <TextView
@@ -105,8 +105,8 @@
         android:layout_width="217dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/UserName"
-        android:layout_below="@+id/UserName"
+        android:layout_alignStart="@+id/Password"
+        android:layout_below="@+id/Password"
         android:layout_marginLeft="24dp"
         android:layout_marginTop="133dp"
         android:layout_toRightOf="@+id/passwordPrompt"
@@ -114,7 +114,7 @@
         android:gravity="center"
         android:hint="Password"
         android:inputType="textPassword"
-        android:textColorHint="Black" />
+        android:textColorHint="@android:color/black" />
 
     <EditText
         android:id="@+id/Email"
@@ -126,7 +126,7 @@
         android:ems="10"
         android:gravity="center"
         android:hint="Email"
-        android:textColorHint="Black"
+        android:textColorHint="@android:color/black"
         android:inputType="textEmailAddress" />
 
     <Button
@@ -166,7 +166,7 @@
         android:layout_marginTop="26dp"
         android:layout_toRightOf="@id/ZipPrompt"
         android:gravity="center"
-        android:textColorHint="Black"
+        android:textColorHint="@android:color/black"
         android:ems="10"
         android:hint="Zip Code"
         android:inputType="number" />
