@@ -43,6 +43,7 @@ public class MainActivity extends Activity {
     }
 
     private void setLogInBtn() {
+        System.out.println(password.getText().toString());
         if(password.getText().toString().equals("Hello!")){
             Intent intent = new Intent(MainActivity.this,HomePage.class);
             intent.putExtra("password",password.getText().toString());
@@ -67,4 +68,5 @@ public class MainActivity extends Activity {
     public void setPassword(EditText password) {
         this.password = password;
     }
+
 }
