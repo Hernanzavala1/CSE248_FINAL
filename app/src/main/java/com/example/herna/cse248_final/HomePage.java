@@ -23,7 +23,8 @@ public class HomePage extends Activity {
         weatherView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                password.setText("weather icon ");
+               Intent intent = new Intent(HomePage.this, Weather.class);
+               startActivity(intent);
             }
         });
 

@@ -12,8 +12,7 @@
         android:foregroundGravity="center_horizontal"
         android:gravity="center_horizontal"
         android:padding="5dp"
-
-        tools:background="#ffffff ">
+        >
 
         <EditText
             android:id="@+id/UserName"
@@ -22,7 +21,9 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="53dp"
+            android:drawableLeft="@drawable/user_icon"
             android:ems="10"
+            android:textColorHint="@color/cardview_light_background"
             android:hint="User Name"
             android:inputType="textPersonName" />
 
@@ -33,8 +34,10 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="106dp"
+            android:drawableLeft="@drawable/password_icon"
             android:ems="10"
             android:hint="Password"
+            android:textColorHint="@color/cardview_light_background"
             android:inputType="textPassword" />
 
         <Button
@@ -48,7 +51,7 @@
             android:textColor="@android:color/white"
             android:textSize="24sp"
             android:textStyle="bold"
-            tools:background="@android:color/background_light" />
+           />
     </RelativeLayout>
 
     <TextView
@@ -72,6 +75,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="46dp"
+        android:weightSum="2"
         android:orientation="horizontal">
 
         <TextView
