@@ -17,20 +17,20 @@ public class HomePage extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_page);
-        password = findViewById(R.id.userInfo);
+        //password = findViewById(R.id.userInfo);
         weatherView = findViewById(R.id.weatherView);
 
-        weatherView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               Intent intent = new Intent(HomePage.this, Weather.class);
-               startActivity(intent);
-            }
-        });
 
 
 
 
+
+
+    }
+    public void ButtonOnClick(View v){
+
+        Intent intent = new Intent(HomePage.this, Weather.class);
+        startActivity(intent);
 
     }
 }

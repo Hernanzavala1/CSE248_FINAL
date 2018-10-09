@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+
+    </group>
+
+    <item
+
+
+        android:title="weather">
+        <menu>
+            <item android:title="Today!"
+                android:icon="@drawable/ic_weather"
+                >
+
+            </item>
+            <item android:title="Six day"
+                android:icon="@drawable/ic_weather"
+                >
+
+            </item>
+        </menu>
+
+    </item>
+    <item
+        android:icon="@drawable/ic_news"
+        android:title="news">
+
+    </item>
+
+
+
+</menu>
