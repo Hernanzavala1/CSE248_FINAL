@@ -3,20 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:background="@drawable/weather_page"
+   android:background="@drawable/weather_page"
     xmlns:tools="http://schemas.android.com/tools"
  >
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_width="357dp"
+        android:layout_height="357dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_gravity="center"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="119dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="133dp"
+        android:layout_marginRight="20dp"
         android:gravity="center"
         android:orientation="vertical"
         android:weightSum="2"
@@ -40,14 +41,14 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:orientation="vertical"
-            android:weightSum="3">
+            android:weightSum="2">
 
             <TextView
                 android:id="@+id/dateTextfield"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight=".3"
                 android:layout_gravity="center"
+                android:layout_weight=".3"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -56,18 +57,18 @@
                 android:layout_height="15dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="0dp"
-                android:layout_weight="1"
-                android:alpha=".9"
+                android:layout_weight=".8"
                 android:scaleType="centerInside"
                 android:src="@drawable/weather" />
 
             <RelativeLayout
-                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_width="300dp"
-                android:layout_height="100dp">
+                android:layout_weight="1">
 
                 <TextView
+                    android:id="@+id/HummidityLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
@@ -77,10 +78,94 @@
                     android:layout_marginLeft="45dp"
                     android:layout_marginTop="32dp"
                     android:text="Humidity:"
-                    android:textSize="20sp"
                     android:textColor="@color/WhiteTextColor"
-                    android:textStyle="bold"/>
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
 
+                <TextView
+                    android:id="@+id/hummidityAnswer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/HummidityLabel"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="33dp"
+                    android:layout_toEndOf="@+id/HummidityLabel"
+                    android:layout_toRightOf="@+id/HummidityLabel"
+                    android:text="96%"
+                    android:textColor="@color/WhiteTextColor"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/PrecipitacionLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/HummidityLabel"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="-15dp"
+                    android:layout_marginTop="62dp"
+                    android:text="Precipitation:"
+                    android:textColor="@color/WhiteTextColor"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/precipitation"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/PrecipitacionLabel"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="0dp"
+                    android:layout_toRightOf="@id/PrecipitacionLabel"
+                    android:text="0%"
+                    android:textColor="@color/WhiteTextColor"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/windLabel"
+                    android:layout_width="67dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/PrecipitacionLabel"
+                  android:layout_marginLeft="30dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="Wind:"
+                    android:textColor="@color/WhiteTextColor"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/precipitation"
+                    android:layout_marginLeft="41dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_toRightOf="@id/windLabel"
+                    android:text="8 mph"
+                    android:textColor="@color/WhiteTextColor"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="119dp"
+                    android:layout_height="115dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="29dp"
+                    android:layout_marginEnd="8dp"
+
+                    android:layout_marginRight="8dp"
+                    android:gravity="center"
+                    android:text="70"
+                    android:textAllCaps="true"
+                    android:textColor="@color/WhiteTextColor"
+                    android:textSize="36sp" />
             </RelativeLayout>
 
         </LinearLayout>
