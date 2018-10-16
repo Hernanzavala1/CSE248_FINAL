@@ -1,16 +1,16 @@
 package com.example.herna.cse248_final;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class HomePage extends Activity {
+public class HomePage extends AppCompatActivity {
    public TextView password;
    public ImageView weatherView;
     @Override
@@ -19,7 +19,8 @@ public class HomePage extends Activity {
         setContentView(R.layout.home_page);
         //password = findViewById(R.id.userInfo);
         weatherView = findViewById(R.id.weatherView);
-
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
 
 
@@ -27,6 +28,14 @@ public class HomePage extends Activity {
 
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater =getMenuInflater();
+        inflater.inflate(R.menu.toolbar_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
     public void ButtonOnClick(View v){
 
         Intent intent = new Intent(HomePage.this, Weather.class);

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="160dp"
+    android:background="@drawable/snowy_forest">
+    <ImageView
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:backgroundTint="@color/darkColor"
+        android:src="@drawable/crazy_supra"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/name_User"
+        android:text="Hernan Zavala Yanes"
+        android:textStyle="bold"
+        android:textColor="@color/WhiteTextColor"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/email_User"
+        android:text="hernanjosuezavala@hotmail.com"
+        android:textStyle="bold"
+        android:textColor="@color/WhiteTextColor"
+        android:layout_marginLeft="10dp"
+        android:backgroundTint="@color/WhiteTextColor"
+        android:layout_marginTop="5dp"
+
+        />
+
+</LinearLayout>

@@ -20,9 +20,15 @@
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:visibility="visible"
-        android:weightSum="2">
+        android:weightSum="2.5">
 
-        <include layout="@layout/tool_bar"/>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/toolbarColor"
+            app:titleTextColor="@color/textColor"
+            ></android.support.v7.widget.Toolbar>
 
 
         <LinearLayout
@@ -150,7 +156,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:backgroundTint="#CC000000"
+                android:backgroundTint="#CC3C3744"
                 android:padding="5dp">
 
                 <LinearLayout
@@ -195,7 +201,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:backgroundTint="#CC000000"
+                android:backgroundTint="#CC3C3744"
                 android:padding="5dp">
 
                 <LinearLayout
@@ -251,7 +257,10 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         android:visibility="visible"
-        app:menu="@menu/drawer_view" />
+        app:elevation="4dp"
+        app:itemIconTint="@color/darkGray"
+        app:menu="@menu/drawer_view"
+        app:headerLayout="@layout/header_layout"/>
 
 
 </android.support.v4.widget.DrawerLayout>
