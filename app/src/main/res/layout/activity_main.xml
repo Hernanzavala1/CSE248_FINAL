@@ -15,7 +15,7 @@
         >
 
         <EditText
-            android:id="@+id/UserName"
+            android:id="@+id/Email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -24,8 +24,8 @@
             android:drawableLeft="@drawable/user_icon"
             android:ems="10"
             android:textColorHint="@color/cardview_light_background"
-            android:hint="User Name"
-            android:inputType="textPersonName" />
+            android:hint="Email"
+            android:inputType="textEmailAddress" />
 
         <EditText
             android:id="@+id/Password"
