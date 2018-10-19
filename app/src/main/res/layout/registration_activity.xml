@@ -4,41 +4,22 @@
     android:layout_height="match_parent"
     android:background="@drawable/main_background3">
 
-    <TextView
-        android:id="@+id/ZipPrompt"
-        android:layout_width="130dp"
-        android:layout_height="49dp"
-
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/EmailPrompt"
-        android:layout_marginBottom="212dp"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:gravity="center"
-        android:inputType="textPersonName"
-        android:text="Zip Code:"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/passwordPrompt"
         android:layout_width="130dp"
         android:layout_height="41dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="132dp"
-        android:layout_marginRight="10dp"
+        android:layout_below="@id/EmailPrompt"
+        android:layout_alignStart="@+id/UserNamePrompt"
+        android:layout_marginTop="40dp"
         android:ems="10"
         android:gravity="center"
         android:inputType="textPersonName"
         android:text="Password:"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_alignLeft="@+id/UserNamePrompt" />
 
     <EditText
         android:id="@+id/userName2"
@@ -50,7 +31,7 @@
         android:layout_below="@id/ResgistrationText"
         android:ems="10"
         android:gravity="center"
-        android:hint="User Name"
+        android:hint="Name"
         android:textColorHint="@android:color/black"
         android:inputType="textPersonName" />
 
@@ -58,9 +39,9 @@
         android:id="@+id/EmailPrompt"
         android:layout_width="130dp"
         android:layout_height="41dp"
+        android:layout_below="@+id/UserNamePrompt"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="193dp"
+        android:layout_marginTop="38dp"
         android:ems="10"
         android:gravity="center"
         android:inputType="textPersonName"
@@ -89,14 +70,19 @@
         android:layout_width="130dp"
         android:layout_height="41dp"
 
+
+        android:layout_below="@id/ResgistrationText"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="68dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="81dp"
         android:ems="10"
         android:gravity="center"
         android:inputType="textPersonName"
-        android:text="User Name:"
+        android:paddingRight="10dp"
+        android:text="Name:"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -105,11 +91,10 @@
         android:id="@+id/Password"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/userName2"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="9dp"
-        android:layout_marginTop="131dp"
-        android:layout_marginRight="10dp"
+        android:layout_below="@id/Email"
+        android:layout_marginLeft="4dp"
+        android:paddingLeft="10dp"
+        android:layout_marginTop="36dp"
         android:layout_toRightOf="@id/passwordPrompt"
         android:ems="10"
         android:gravity="center"
@@ -122,7 +107,8 @@
         android:layout_width="239dp"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/EmailPrompt"
-        android:layout_marginLeft="15dp"
+        android:layout_marginLeft="10dp"
+        android:paddingLeft="10dp"
         android:layout_toRightOf="@+id/EmailPrompt"
         android:ems="10"
         android:gravity="center"
@@ -141,7 +127,8 @@
         android:layout_marginStart="55dp"
         android:padding="10dp"
         android:text="Sign Up"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_marginLeft="55dp" />
 
     <Button
         android:id="@+id/Cancel_Btn"
@@ -153,23 +140,9 @@
         android:layout_alignTop="@+id/Sign_UpBtn"
         android:layout_marginEnd="37dp"
         android:text="Cancel"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_marginRight="37dp" />
 
-    <EditText
-        android:id="@+id/ZipCode"
-        android:layout_width="236dp"
-        android:layout_height="49dp"
-        android:layout_alignBottom="@+id/ZipPrompt"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/Email"
-        android:layout_marginLeft="18dp"
-        android:layout_marginTop="26dp"
-        android:layout_toRightOf="@id/ZipPrompt"
-        android:gravity="center"
-        android:textColorHint="@android:color/black"
-        android:ems="10"
-        android:hint="Zip Code"
-        android:inputType="number" />
+
 
 </RelativeLayout>

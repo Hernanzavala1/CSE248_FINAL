@@ -4,6 +4,7 @@
     android:layout_height="160dp"
     android:background="@drawable/snowy_forest">
     <ImageView
+        android:id="@+id/userProfilePic"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:layout_width="75dp"

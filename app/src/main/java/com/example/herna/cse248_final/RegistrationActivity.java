@@ -16,16 +16,20 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 import static android.support.constraint.Constraints.TAG;
 
 public class RegistrationActivity extends Activity {
     private Button cancelButton;
     private Button signUpButton;
+    private  EditText Name;
     private EditText email, password;
 
     private FirebaseAuth mAuth;
+    private  FirebaseUser user;
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +40,7 @@ public class RegistrationActivity extends Activity {
         signUpButton = (Button)findViewById(R.id.Sign_UpBtn);
         email = (EditText)findViewById(R.id.Email) ;
         password =(EditText)findViewById(R.id.Password) ;
+        Name = (EditText)findViewById(R.id.userName2);
 
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -71,19 +76,20 @@ public class RegistrationActivity extends Activity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                             user = mAuth.getCurrentUser();
+                            setUserInfo();
+
                             Toast.makeText(RegistrationActivity.this, "Authentication succesful",
                                     Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(RegistrationActivity.this,HomePage.class );
                             startActivity(intent);
                            // updateUI(user);
                         } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(RegistrationActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            //updateUI(null);
+                            if(task.getException() instanceof FirebaseAuthUserCollisionException){
+                                Toast.makeText(getApplicationContext(),"You are already registered!",Toast.LENGTH_SHORT).show();
+                            }
+
+
                         }
 
                     }
@@ -91,6 +97,19 @@ public class RegistrationActivity extends Activity {
 
                 });
 
+    }
+
+    private void setUserInfo() {
+    String name = Name.getText().toString().trim();
+    if(name != null){
+        UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
+        user.updateProfile(profileChangeRequest).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+
+            }
+        });
+    }
     }
 
     public void setUpCancelBtn(){
