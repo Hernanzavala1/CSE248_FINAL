@@ -91,11 +91,6 @@ public class HomePage extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-    }
 
     private void setHeaderInfo(FirebaseUser user) {
        TextView email = headerLayout.findViewById(R.id.email_User);
