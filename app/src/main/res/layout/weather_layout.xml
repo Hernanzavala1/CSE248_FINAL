@@ -15,6 +15,7 @@
         app:titleTextColor="@color/textColor"
         ></android.support.v7.widget.Toolbar>
     <LinearLayout
+        android:id="@+id/WeatherInfoLayout"
         android:layout_width="357dp"
         android:layout_height="357dp"
         android:layout_alignParentStart="true"
@@ -31,6 +32,7 @@
         tools:context=".Weather">
 
         <TextView
+            android:id="@+id/Header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -60,6 +62,7 @@
                 android:textStyle="bold" />
 
             <ImageView
+                android:id="@+id/CurrentWeatherIcon"
                 android:layout_width="85dp"
                 android:layout_height="15dp"
                 android:layout_gravity="center"

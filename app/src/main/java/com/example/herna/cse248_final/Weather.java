@@ -6,23 +6,30 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 public class Weather extends AppCompatActivity {
+    // Get reference to all views in the layout
+    private TextView header;
     private TextView dateText;
     private Toolbar toolbar;
-
+    private ImageView CurrentWeatherIcon;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.weather_layout);
+
+        CurrentWeatherIcon= findViewById(R.id.CurrentWeatherIcon);
+        header = findViewById(R.id.Header);
         dateText = findViewById(R.id.dateTextfield);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+
         setSupportActionBar(toolbar);
         setDate();
 

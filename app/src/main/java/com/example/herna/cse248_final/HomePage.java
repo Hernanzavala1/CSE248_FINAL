@@ -26,6 +26,7 @@ public class HomePage extends AppCompatActivity {
     private static final int CHOOSE_IMAGE = 101;
     public TextView password;
    public ImageView weatherView;
+   private ImageView newsView;
    public NavigationView navigationView;
 
    private ImageView profileImage;
@@ -51,6 +52,7 @@ public class HomePage extends AppCompatActivity {
 
         //Hooking up the xml fields with java
         weatherView = findViewById(R.id.weatherView);
+        newsView = findViewById(R.id.newsIcon);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         navigationView = (NavigationView)findViewById(R.id.nav_view);
         headerLayout = navigationView.getHeaderView(0);
@@ -105,6 +107,11 @@ public class HomePage extends AppCompatActivity {
         MenuInflater inflater =getMenuInflater();
         inflater.inflate(R.menu.toolbar_menu, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    public void goToNewsPage(View v){
+        Intent intent = new Intent(HomePage.this, newsActivity.class);
+        startActivity(intent);
     }
 
     public void ButtonOnClick(View v){
