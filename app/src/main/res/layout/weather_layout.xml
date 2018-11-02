@@ -28,7 +28,7 @@
         android:layout_marginRight="20dp"
         android:gravity="center"
         android:orientation="vertical"
-        android:weightSum="2"
+        android:weightSum="3"
         tools:context=".Weather">
 
         <TextView
@@ -36,6 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+
             android:layout_margin="10dp"
             android:gravity="top"
             android:text="Today's Weather"
@@ -50,7 +51,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:orientation="vertical"
-            android:weightSum="2">
+            android:weightSum="3">
 
             <TextView
                 android:id="@+id/dateTextfield"
@@ -64,10 +65,10 @@
             <ImageView
                 android:id="@+id/CurrentWeatherIcon"
                 android:layout_width="85dp"
-                android:layout_height="15dp"
+                android:layout_height="0dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="0dp"
-                android:layout_weight=".8"
+                android:layout_weight="1"
                 android:scaleType="centerInside"
                 android:src="@drawable/weather" />
 
@@ -75,7 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_weight="1">
+                android:layout_weight="1.5">
 
                 <TextView
                     android:id="@+id/HummidityLabel"
@@ -149,7 +150,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView8"
+                    android:id="@+id/windspeed_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/precipitation"
@@ -162,6 +163,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/current_temp"
                     android:layout_width="119dp"
                     android:layout_height="115dp"
                     android:layout_alignParentTop="true"
