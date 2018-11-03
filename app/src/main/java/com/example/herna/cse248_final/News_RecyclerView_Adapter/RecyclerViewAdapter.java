@@ -23,10 +23,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     List<Article> articles;
     Context mcontext;
-    public RecyclerViewAdapter(Context context, List<Article> articles) {
+    private ItemClickListener itemClickListener;
+    public RecyclerViewAdapter(Context context, List<Article> articles,ItemClickListener itemClickListener) {
         this.articles = articles;
         this.mcontext = context;
-
+        this.itemClickListener = itemClickListener;
     }
 
     @NonNull
@@ -49,6 +50,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         else
             parent.article_Title.setText(articles.get(position).getTitle());
 
+
+
     }
 
     @Override
@@ -56,10 +59,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return articles.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ImageView Image;
         private TextView article_Title;
         private CardView parent_Layout;
+
+
+
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -67,8 +76,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             article_Title= itemView.findViewById(R.id.article_title);
             parent_Layout = itemView.findViewById(R.id.parent_layout);
 
+            itemView.setOnClickListener(this);
+
 
         }
+        @Override
+        public void onClick(View v) {
+        itemClickListener.onClickListener(v, getAdapterPosition());
+        }
+
     }
 
 

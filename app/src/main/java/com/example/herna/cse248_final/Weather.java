@@ -104,7 +104,7 @@ public class Weather extends AppCompatActivity {
         hummidity.setText(String.valueOf(weather.main.getHumidity()));
             precipitation.setText(String.valueOf(weather.main.getPressure()));
             windspeed_textview.setText(String.valueOf(weather.wind.getSpeed()));
-            current_temp.setText(String.valueOf(getFahrenheit(weather.main.getTemp())));
+            current_temp.setText(String.valueOf((int)getFahrenheit(weather.main.getTemp())));
     }
 
     private double getFahrenheit(double degreesKelvin) {

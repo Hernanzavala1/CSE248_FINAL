@@ -25,6 +25,7 @@
         <activity android:name=".HomePage" />
         <activity android:name=".Weather" />
         <activity android:name=".newsActivity"></activity>
+        <activity android:name=".News_RecyclerView_Adapter.webviewClass"></activity>
     </application>
 
 </manifest>
