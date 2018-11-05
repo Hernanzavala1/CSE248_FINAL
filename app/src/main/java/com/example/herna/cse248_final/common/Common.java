@@ -22,10 +22,10 @@ public class Common {
         return RetrofitClient.getClient("https://api.openweathermap.org/data/2.5/").create(WeatherInfo.class);
     }
 
-    public static String getAPIUrl()
+    public static String getAPIUrl(String Source)
     {
         StringBuilder apiUrl = new StringBuilder("https://newsapi.org/v2/top-headlines?sources=");
-        return apiUrl.append("abc-news").
+        return apiUrl.append(Source).
                 append("&apiKey=").append("0daed7fe19474840bf9112c58db85757").toString();
     }
 }

@@ -65,7 +65,7 @@
                         android:adjustViewBounds="true"
                         android:clickable="false"
                         android:contextClickable="true"
-                        android:onClick="ButtonOnClick"
+                        android:onClick="goToWeatherPage"
                         android:padding="10dp"
                         android:src="@drawable/weather" />
 

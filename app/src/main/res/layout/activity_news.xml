@@ -35,27 +35,22 @@
                 android:src="@drawable/crazy_supra" />
 
             <TextView
-                android:layout_width="78dp"
-                android:layout_height="37dp"
+                android:id="@+id/top_article_title"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
                 android:layout_gravity="bottom|left"
                 android:layout_marginRight="10dp"
-                android:text="Source"
-                android:textColor="@color/darkColor"
-                android:textStyle="bold"
-                android:textSize="20sp" />
+                android:layout_marginBottom="20dp"
+                android:textSize="18sp"
+                android:textAlignment="center"/>
+            <Spinner
+                android:id="@+id/drop_Down_News_Source"
+                android:layout_width="100dp"
+                android:layout_height="37dp"
+                android:layout_gravity="top|right"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp" />
         </com.github.florent37.diagonallayout.DiagonalLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:gravity="center_horizontal|center_vertical"
-            android:text="Welcome to News "
-            android:textColor="@color/WhiteTextColor"
-            android:textStyle="bold"
-            android:textSize="18sp" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"

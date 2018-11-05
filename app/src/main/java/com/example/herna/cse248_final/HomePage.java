@@ -114,7 +114,7 @@ public class HomePage extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void ButtonOnClick(View v){
+    public void goToWeatherPage(View v){
 
         Intent intent = new Intent(HomePage.this, Weather.class);
         startActivity(intent);

@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">CSE248_Final</string>
+    <string-array name="News_Sources">
+        <item>CBS News</item>
+        <item>ESPN News</item>
+        <item>CNN News</item>
+        <item>MTV News</item>
+        <item>NBC News</item>
+    </string-array>
 </resources>

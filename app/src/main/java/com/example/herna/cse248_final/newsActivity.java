@@ -1,16 +1,19 @@
 package com.example.herna.cse248_final;
 
-import android.app.Activity;
+import android.annotation.TargetApi;
 import android.content.Intent;
-import android.support.design.internal.NavigationMenuView;
+import android.os.Build;
+import android.os.Handler;
+import android.support.annotation.RequiresApi;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.webkit.WebView;
-import android.widget.ImageView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.herna.cse248_final.NewsModel.Article;
@@ -23,22 +26,24 @@ import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.github.florent37.diagonallayout.DiagonalLayout;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class newsActivity extends AppCompatActivity implements ItemClickListener {
+public class newsActivity extends AppCompatActivity implements ItemClickListener, AdapterView.OnItemSelectedListener{
 
     private NewsService newsService;
 
     public RecyclerView recyclerView;
-    private SwipeRefreshLayout layout;
+    private SwipeRefreshLayout swipeRefreshLayout;
     public DiagonalLayout diagonalLayout;
     public KenBurnsView kbv;
 
+    // news source
+    private String Source ="abc-news";
+    private Spinner spinner;
 
     private List<Article> articles;
     @Override
@@ -50,26 +55,46 @@ public class newsActivity extends AppCompatActivity implements ItemClickListener
         newsService = Common.getNewsService();
     recyclerView = findViewById(R.id.recyclerView);
     kbv = findViewById(R.id.kbv);
-    layout = findViewById(R.id.swipeRefresh);
-    layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-        @Override
-        public void onRefresh() {
-            loadNews();
-           
-        }
-    });
+    swipeRefreshLayout = findViewById(R.id.swipeRefresh);
+    spinner  =(Spinner)findViewById(R.id.drop_Down_News_Source);
+    loadSpinner();
+    spinner.setOnItemSelectedListener(this);
 
-
+        // originally load from abc news and if user wants to change they can select from the list and reload the news
         // initialize the recycler
-        loadNews();
+        loadNews(this.Source);
 
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @TargetApi(Build.VERSION_CODES.P)
+            @RequiresApi(api = Build.VERSION_CODES.P)
+            @Override
+            public void onRefresh() {
+                loadNews(Source);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                },4000);
+
+            }
+        });
 
 
     }
 
+    private void loadSpinner() {
 
-    public void loadNews(){
-        newsService.getArticles(Common.getAPIUrl()).enqueue(new Callback<News>() {
+        ArrayAdapter<CharSequence> myAdapter = ArrayAdapter.createFromResource(this,R.array.News_Sources, android.R.layout.simple_spinner_item);
+        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(myAdapter);
+
+    }
+
+
+    public void loadNews(String Source){
+        newsService.getArticles(Common.getAPIUrl(Source)).enqueue(new Callback<News>() {
             @Override
             public void onResponse(Call<News> call, Response<News> response) {
                 Picasso.get()
@@ -101,5 +126,34 @@ public class newsActivity extends AppCompatActivity implements ItemClickListener
     else{
         Toast.makeText(this, "something went wrong in clickListener  method!", Toast.LENGTH_SHORT);
     }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+      switch (position){
+          case 0 :
+              Source = "cbs-news";
+              break;
+          case 1 :
+              Source = "espn";
+              break;
+          case 2:
+              Source ="cnn";
+              break;
+          case 3:
+              Source = "mtv-news";
+              break;
+          case 4:
+              Source = "nbc-news";
+              break;
+              default:
+                  Source ="abc-news";
+      }
+      loadNews(Source);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }
