@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.herna.cse248_final.NewsModel.Article;
@@ -37,6 +38,7 @@ public class newsActivity extends AppCompatActivity implements ItemClickListener
     private NewsService newsService;
 
     public RecyclerView recyclerView;
+    public TextView top_article_title;
     private SwipeRefreshLayout swipeRefreshLayout;
     public DiagonalLayout diagonalLayout;
     public KenBurnsView kbv;
@@ -57,6 +59,7 @@ public class newsActivity extends AppCompatActivity implements ItemClickListener
     kbv = findViewById(R.id.kbv);
     swipeRefreshLayout = findViewById(R.id.swipeRefresh);
     spinner  =(Spinner)findViewById(R.id.drop_Down_News_Source);
+        top_article_title = findViewById(R.id.top_article_title);
     loadSpinner();
     spinner.setOnItemSelectedListener(this);
 
@@ -100,6 +103,8 @@ public class newsActivity extends AppCompatActivity implements ItemClickListener
                 Picasso.get()
                         .load(response.body().getArticles().get(0).getUrlToImage())
                         .into(kbv);
+                // set title to the first article
+                top_article_title.setText(response.body().getArticles().get(0).getTitle());
 
                 articles = response.body().getArticles();
 

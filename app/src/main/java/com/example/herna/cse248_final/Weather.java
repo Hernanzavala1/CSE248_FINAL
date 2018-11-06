@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.herna.cse248_final.common.Common;
 import com.example.herna.cse248_final.weatherModel.WeatherInfo;
 import com.example.herna.cse248_final.weatherModel.WeatherObject;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -99,12 +100,13 @@ public class Weather extends AppCompatActivity {
 
     private void setAllInfo(WeatherObject weather) {
 
-
+        Picasso.get().load(new StringBuilder("https://openweathermap.org/img/w/").append(weather.getWeather().get(0).getIcon()).append(".png")
+                .toString()).into(CurrentWeatherIcon);
 
         hummidity.setText(String.valueOf(weather.main.getHumidity()));
             precipitation.setText(String.valueOf(weather.main.getPressure()));
-            windspeed_textview.setText(String.valueOf(weather.wind.getSpeed()));
-            current_temp.setText(String.valueOf((int)getFahrenheit(weather.main.getTemp())));
+            windspeed_textview.setText(String.valueOf(weather.wind.getSpeed()) +"mph");
+            current_temp.setText(String.valueOf((int)getFahrenheit(weather.main.getTemp())) +"°");
     }
 
     private double getFahrenheit(double degreesKelvin) {

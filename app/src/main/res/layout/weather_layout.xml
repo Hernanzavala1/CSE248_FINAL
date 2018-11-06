@@ -14,17 +14,29 @@
         android:background="@color/toolbarColor"
         app:titleTextColor="@color/textColor"
         ></android.support.v7.widget.Toolbar>
+
+    <ImageView
+        android:id="@+id/CurrentWeatherIcon"
+        android:layout_width="100sp"
+        android:layout_height="120sp"
+
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="73dp"
+        android:src="@drawable/weather" />
+
     <LinearLayout
         android:id="@+id/WeatherInfoLayout"
         android:layout_width="357dp"
         android:layout_height="357dp"
+        android:layout_below="@id/CurrentWeatherIcon"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_gravity="center"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="133dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="191dp"
         android:layout_marginRight="20dp"
         android:gravity="center"
         android:orientation="vertical"
@@ -62,15 +74,6 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/CurrentWeatherIcon"
-                android:layout_width="85dp"
-                android:layout_height="0dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="0dp"
-                android:layout_weight="1"
-                android:scaleType="centerInside"
-                android:src="@drawable/weather" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -125,10 +128,10 @@
                 <TextView
                     android:id="@+id/precipitation"
                     android:layout_width="wrap_content"
-                    android:layout_marginLeft="25dp"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/PrecipitacionLabel"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="25dp"
                     android:layout_marginBottom="0dp"
                     android:layout_toRightOf="@id/PrecipitacionLabel"
                     android:text="0%"
@@ -141,7 +144,7 @@
                     android:layout_width="67dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/PrecipitacionLabel"
-                  android:layout_marginLeft="30dp"
+                    android:layout_marginLeft="30dp"
                     android:layout_marginTop="8dp"
                     android:gravity="center"
                     android:text="Wind:"
