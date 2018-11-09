@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.herna.cse248_final">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MANAGE_DOCUMENTS"/>
 
 
     <application
@@ -24,8 +27,9 @@
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".HomePage" />
         <activity android:name=".Weather" />
-        <activity android:name=".newsActivity"></activity>
-        <activity android:name=".News_RecyclerView_Adapter.webviewClass"></activity>
+        <activity android:name=".newsActivity" />
+        <activity android:name=".News_RecyclerView_Adapter.webviewClass" />
+        <activity android:name=".EventsActivity"></activity>
     </application>
 
 </manifest>

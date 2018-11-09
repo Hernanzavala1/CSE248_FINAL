@@ -170,10 +170,12 @@
                     android:weightSum="3">
 
                     <ImageView
+                        android:id="@+id/eventIcon"
                         android:layout_width="match_parent"
                         android:layout_height="71dp"
                         android:layout_weight="1"
                         android:padding="3dp"
+                        android:onClick="goToEventsPage"
                         android:src="@drawable/events_icon" />
 
                     <View

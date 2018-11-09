@@ -2,12 +2,14 @@ package com.example.herna.cse248_final;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -102,7 +104,10 @@ public class RegistrationActivity extends Activity {
     private void setUserInfo() {
     String name = Name.getText().toString().trim();
     if(name != null){
-        UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
+        Uri uri = Uri.parse("android.resource://com.example.herna.cse248_final/drawable/crazy_supra.jpg");
+
+
+        UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder().setDisplayName(name).setPhotoUri(uri).build();
         user.updateProfile(profileChangeRequest).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

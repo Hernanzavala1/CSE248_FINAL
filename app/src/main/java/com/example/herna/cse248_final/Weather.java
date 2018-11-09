@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -91,7 +92,7 @@ public class Weather extends AppCompatActivity {
 
            @Override
            public void onFailure(Call<WeatherObject> call, Throwable t) {
-              // Toast.makeText(this,"something went wrong", Toast.LENGTH_SHORT).show();
+               Toast.makeText(Weather.this,"something went wrong", Toast.LENGTH_SHORT).show();
            }
        });
 
@@ -99,10 +100,9 @@ public class Weather extends AppCompatActivity {
     }
 
     private void setAllInfo(WeatherObject weather) {
-
-        Picasso.get().load(new StringBuilder("https://openweathermap.org/img/w/").append(weather.getWeather().get(0).getIcon()).append(".png")
-                .toString()).into(CurrentWeatherIcon);
-
+        StringBuilder builder = new StringBuilder("https://openweathermap.org/img/w/");
+        builder.append(weather.getWeather().get(0).getIcon()).append(".png");
+        Picasso.get().load(String.valueOf(builder)).into(CurrentWeatherIcon);
         hummidity.setText(String.valueOf(weather.main.getHumidity()));
             precipitation.setText(String.valueOf(weather.main.getPressure()));
             windspeed_textview.setText(String.valueOf(weather.wind.getSpeed()) +"mph");
