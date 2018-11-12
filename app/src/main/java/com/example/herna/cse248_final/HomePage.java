@@ -1,11 +1,8 @@
 package com.example.herna.cse248_final;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -29,10 +26,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.function.BiPredicate;
 
 public class HomePage extends AppCompatActivity {
     private static final int CHOOSE_IMAGE = 101;
@@ -66,7 +59,6 @@ public class HomePage extends AppCompatActivity {
         user = mAuth.getCurrentUser();
 
 
-      //  mStorageRef = storage.getReference();
 
         //Hooking up the xml fields with java
         weatherView = findViewById(R.id.weatherView);
@@ -110,10 +102,9 @@ public class HomePage extends AppCompatActivity {
         if(requestCode == CHOOSE_IMAGE && resultCode == RESULT_OK && data != null && data.getData() != null){
          uri = data.getData();
 
-         String path = "profilepics/"+System.currentTimeMillis()+
+         String path = "profilepics/"+ System.currentTimeMillis()+
                  ".jpg";
     StorageReference storage = FirebaseStorage.getInstance().getReference(path);
-
 
          UploadTask uploadTask = storage.putFile(uri);
             Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
@@ -178,22 +169,7 @@ public class HomePage extends AppCompatActivity {
         if(user.getPhotoUrl() != null) {
             Picasso.get().load(user.getPhotoUrl()).into(profileImage);
         }
-//        Bitmap bitmap;
-//        try{
-//            bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(user.getPhotoUrl()));
-//            profileImage.setImageBitmap(bitmap);
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
 
-        // It is here where the image does not load and nothing appears for the profile image. I print the uri above and
-        // it does contain a image uri the problem is loading
-        //this is what prints out USER PHOTO URI content://com.android.providers.media.documents/document/image%3A208843 so i know it is saving it to user
-       // Picasso.get().load(user.getPhotoUrl()).into(profileImage);
-
-        // tried to do the below but it requires Manage_Document permission which is only allow for special apps, not to sure what it meant.
-      //  Bitmap bitmap = android.provider.MediaStore.Images.Media.getBitmap(getContentResolver(), user.getPhotoUrl());
-       //profileImage.setImageBitmap(bitmap);
     }
 
 

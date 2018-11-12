@@ -75,9 +75,10 @@ public class MainActivity extends Activity {
                             Log.d(TAG, "signInWithEmail:success");
                             Toast.makeText(MainActivity.this, "Authentication succesful!",
                                     Toast.LENGTH_SHORT).show();
-                            FirebaseUser user = mAuth.getCurrentUser();
+
                             Intent intent = new Intent(MainActivity.this, HomePage.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                           // intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK );
                             startActivity(intent);
                         } else {
                             Log.w(TAG, "signInWithEmail:failure", task.getException());

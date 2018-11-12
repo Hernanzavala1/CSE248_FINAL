@@ -92,6 +92,8 @@ public class Weather extends AppCompatActivity {
 
            @Override
            public void onFailure(Call<WeatherObject> call, Throwable t) {
+               String message = t.getMessage().toString();
+               System.out.println("the cause !!!!!!!!!! "+ message);
                Toast.makeText(Weather.this,"something went wrong", Toast.LENGTH_SHORT).show();
            }
        });

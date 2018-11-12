@@ -4,13 +4,13 @@ public class Wind {
 
 
     private double speed;
-    private int deg;
+    private double deg;
 
-    public int getDeg() {
+    public double getDeg() {
         return deg;
     }
 
-    public void setDeg(int deg) {
+    public void setDeg(double deg) {
         this.deg = deg;
     }
 

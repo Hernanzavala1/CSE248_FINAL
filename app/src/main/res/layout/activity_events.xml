@@ -11,8 +11,220 @@
         android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        mapbox:mapbox_cameraTargetLat="40.73581"
-        mapbox:mapbox_cameraTargetLng="-73.99155"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        mapbox:mapbox_cameraTargetLat="40.842312"
+        mapbox:mapbox_cameraTargetLng="-73.300308"
+        mapbox:mapbox_cameraZoom="11"
         mapbox:mapbox_styleUrl="mapbox://styles/mapbox/streets-v10"
-        mapbox:mapbox_cameraZoom="11"></com.mapbox.mapboxsdk.maps.MapView>
+        android:layout_marginLeft="0dp"
+        android:layout_alignParentLeft="true"></com.mapbox.mapboxsdk.maps.MapView>
+    <RelativeLayout
+        android:background="@color/WhiteTextColor"
+        android:id="@+id/mainLayout"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="520dp">
+
+        <TextView
+            android:id="@+id/eventLabel"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="Enter Event"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:inputType="none"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:id="@+id/EventNameAsk"
+
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_below="@+id/eventLabel"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="67dp"
+            android:gravity="center_vertical"
+            android:inputType="none"
+            android:text="Event Name:"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/eventNameAnswer"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/eventLabel"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="14dp"
+            android:layout_toRightOf="@+id/EventNameAsk"
+            android:gravity="center"
+            android:inputType="text"
+            android:text="hello"
+            android:textSize="17sp" />
+        <TextView
+            android:id="@+id/eventDateAsk"
+            android:layout_below="@+id/EventNameAsk"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Event Date:"
+            android:textStyle="bold"
+            android:textSize="17sp"
+            android:inputType="none"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:layout_marginStart="28dp"
+            android:layout_marginLeft="28dp" />
+
+        <EditText
+            android:id="@+id/eventDateAns"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/eventNameAnswer"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="11dp"
+            android:layout_toRightOf="@id/eventDateAsk"
+            android:gravity="center"
+            android:inputType="text"
+            android:text=""
+            android:textSize="17sp" />
+        <TextView
+            android:id="@+id/streetAdress"
+            android:layout_below="@+id/eventDateAsk"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="10dp"
+            android:textSize="17sp"
+            android:gravity="center"
+            android:text="Street Address:"
+            android:inputType="none"
+            android:textStyle="bold"
+            android:layout_marginLeft="26dp" />
+
+        <EditText
+            android:id="@+id/streetAddressAns"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/eventDateAns"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/streetAdress"
+            android:gravity="center"
+            android:inputType="text" />
+        <TextView
+            android:id="@+id/townAsk"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_below="@+id/streetAdress"
+            android:layout_marginStart="28dp"
+            android:layout_marginLeft="28dp"
+            android:text="Town:"
+            android:textSize="17sp"
+            android:gravity="center_vertical"
+            android:layout_marginTop="10dp"
+            android:inputType="none"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/townAns"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/streetAddressAns"
+            android:layout_marginLeft="29dp"
+            android:layout_marginTop="9dp"
+            android:layout_toRightOf="@+id/townAsk"
+            android:gravity="center"
+            android:inputType="text"
+            android:textSize="17sp" />
+        <TextView
+            android:id="@+id/stateAsk"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_below="@+id/townAsk"
+            android:layout_marginStart="28dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginTop="10dp"
+            android:text="State:"
+            android:textSize="17sp"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/stateAns"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/townAns"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="12dp"
+            android:layout_toRightOf="@+id/stateAsk"
+            android:gravity="center"
+            android:textSize="17sp" />
+        <TextView
+            android:id="@+id/eventDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Event Description:"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:layout_below="@+id/stateAsk"
+            android:layout_marginLeft="28dp"
+            android:inputType="none"
+            android:layout_marginTop="10dp"/>
+
+        <EditText
+            android:id="@+id/eventDescriptionAns"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/stateAns"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/eventDescription" />
+
+
+        <Button
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/saveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+         android:layout_below="@+id/eventDescription"
+            android:text="Save"
+            android:textStyle="bold"/>
+
+        <Button
+            android:onClick="setCancelButton"
+            android:id="@+id/cancelButton"
+            android:text="Cancel"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="150dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+         android:layout_toRightOf="@+id/saveButton"
+            android:layout_below="@id/eventDescriptionAns"/>
+
+
+    </RelativeLayout>
+
+    <ImageButton
+        android:onClick="addEvent"
+        android:id="@+id/eventButton"
+        android:visibility="visible"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginBottom="73dp"
+        android:background="@drawable/oval" />
+
+
+
 </RelativeLayout>
