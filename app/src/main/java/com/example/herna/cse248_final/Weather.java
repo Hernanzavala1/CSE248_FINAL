@@ -7,7 +7,9 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -43,20 +45,21 @@ public class Weather extends AppCompatActivity {
     private TextView hummidity;
     private TextView precipitation;
     private TextView windspeed_textview;
-    private  TextView current_temp;
+    private TextView current_temp;
 
-    private WeatherInfo  mservice;
+    private WeatherInfo mservice;
 
 
     LocationManager locationManager;
-    static final int REQUEST_LOCATION =1;
+    private Location location;
+    static final int REQUEST_LOCATION = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.weather_layout);
 
-        CurrentWeatherIcon= findViewById(R.id.CurrentWeatherIcon);
+        CurrentWeatherIcon = findViewById(R.id.CurrentWeatherIcon);
         header = findViewById(R.id.Header);
         dateText = findViewById(R.id.dateTextfield);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -70,33 +73,36 @@ public class Weather extends AppCompatActivity {
         setSupportActionBar(toolbar);
         setDate();
         // Location
-        locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-       Location location =  getCurrentLocation();
 
-       if(location != null) {
-           setWeatherInformation(location);
-       }
+
+        location = getCurrentLocation();
+
+        if (location != null) {
+            setWeatherInformation(location);
+        } else {
+            Toast.makeText(this, "Location services not available. Please turn on Location!", Toast.LENGTH_SHORT).show();
+        }
 
 
     }
 
     private void setWeatherInformation(Location location) {
-       mservice = Common.weatherService();
-       mservice.getWeatherService(String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude()),
-               "31f21d48a88fa7b189386b5c269966f3", "metric").enqueue(new Callback<WeatherObject>() {
-           @Override
-           public void onResponse(Call<WeatherObject> call, Response<WeatherObject> response) {
-               WeatherObject weather  = response.body();
-               setAllInfo(weather);
-           }
+        mservice = Common.weatherService();
+        mservice.getWeatherService(String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude()),
+                "31f21d48a88fa7b189386b5c269966f3", "metric").enqueue(new Callback<WeatherObject>() {
+            @Override
+            public void onResponse(Call<WeatherObject> call, Response<WeatherObject> response) {
+                WeatherObject weather = response.body();
+                setAllInfo(weather);
+            }
 
-           @Override
-           public void onFailure(Call<WeatherObject> call, Throwable t) {
-               String message = t.getMessage().toString();
-               System.out.println("the cause !!!!!!!!!! "+ message);
-               Toast.makeText(Weather.this,"something went wrong", Toast.LENGTH_SHORT).show();
-           }
-       });
+            @Override
+            public void onFailure(Call<WeatherObject> call, Throwable t) {
+                String message = t.getMessage().toString();
+                System.out.println("the cause !!!!!!!!!! " + message);
+                Toast.makeText(Weather.this, "something went wrong", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
     }
@@ -106,32 +112,51 @@ public class Weather extends AppCompatActivity {
         builder.append(weather.getWeather().get(0).getIcon()).append(".png");
         Picasso.get().load(String.valueOf(builder)).into(CurrentWeatherIcon);
         hummidity.setText(String.valueOf(weather.main.getHumidity()));
-            precipitation.setText(String.valueOf(weather.main.getPressure()));
-            windspeed_textview.setText(String.valueOf(weather.wind.getSpeed()) +"mph");
-            current_temp.setText(String.valueOf((int)getFahrenheit(weather.main.getTemp())) +"°");
+        precipitation.setText(String.valueOf(weather.main.getPressure()));
+        windspeed_textview.setText(String.valueOf(weather.wind.getSpeed()) + "mph");
+        current_temp.setText(String.valueOf((int) getFahrenheit(weather.main.getTemp())) + "°");
     }
 
     private double getFahrenheit(double degreesKelvin) {
 
 
-            double f = (((degreesKelvin - 273) * (9.0/5) ) + 32);
+        double f = (((degreesKelvin - 273) * (9.0 / 5)) + 32);
         DecimalFormat format = new DecimalFormat("##");
         format.format(f);
         return f;
     }
 
     private Location getCurrentLocation() {
-        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION) !=
-                PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this, new String[]{
-                    Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION} , REQUEST_LOCATION);
+        Location location = null;
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) ==
+                PackageManager.PERMISSION_GRANTED) {
+
+                locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                  location = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
+        } else {
+            ActivityCompat.requestPermissions(Weather.this, new String[]{
+                    Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_LOCATION);
+            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            location = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
+        }
+        return location;
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_LOCATION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Location Permission granted!",Toast.LENGTH_SHORT).show();
+
+            }
+
         }
         else{
-            Location location = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
-           return location;
+            Toast.makeText(this, "Location Permission denied!",Toast.LENGTH_SHORT).show();
         }
-        return null;
     }
 
     @Override

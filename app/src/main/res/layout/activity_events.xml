@@ -193,6 +193,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
          android:layout_below="@+id/eventDescription"
+            android:onClick="saveEvent"
             android:text="Save"
             android:textStyle="bold"/>
 
