@@ -1,16 +1,46 @@
 package com.example.herna.cse248_final.eventModel;
 
 public class Event {
+    private String id;
     private String eventName;
     private String eventDescription;
     private String eventDate;
-    private Address address;
+    private double latitude;
+    private double longitude;
 
-    public Event(String eventName, String eventDescription, String eventDate, Address address) {
+    public Event(String eventName, String eventDescription, String eventDate, double latitude) {
         this.eventName = eventName;
         this.eventDescription = eventDescription;
         this.eventDate = eventDate;
-        this.address = address;
+        this.latitude = latitude;
+    }
+
+    public Event() {
+
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     public String getEventName() {
@@ -36,12 +66,6 @@ public class Event {
     public void setEventDate(String eventDate) {
         this.eventDate = eventDate;
     }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
 }
+
+

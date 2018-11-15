@@ -3,6 +3,7 @@ package com.example.herna.cse248_final;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,12 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.example.herna.cse248_final.eventModel.Event;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
@@ -21,6 +28,7 @@ import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -36,21 +44,40 @@ public class EventsActivity extends AppCompatActivity {
 
 
     // layout to add event
+    private EditText eventName;
+    private EditText eventDate;
+    private EditText eventDescription;
     private RelativeLayout layout;
     private EditText streetAddress;
     private  EditText town;
     private  EditText state;
 
+    private DatabaseReference myRef;
+
+    private ArrayList<Event> list ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
        Mapbox.getInstance(EventsActivity.this, "pk.eyJ1IjoiemF2YWg5MSIsImEiOiJjam84NjNza2UxMmwzM3FwYmcydHdiZ2loIn0.gwLmml2xyFZOWIwlwL2phA");
         setContentView(R.layout.activity_events);
 
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+          myRef = database.getReference("Events");
+
+
+        list = new ArrayList<>();
+
+
+
+
+
         eventButton = findViewById(R.id.eventButton);
         cancelButton = findViewById(R.id.cancelButton);
         saveButton = findViewById(R.id.saveButton);
         layout = findViewById(R.id.mainLayout);
+        eventName = layout.findViewById(R.id.eventNameAnswer);
+        eventDate = layout.findViewById(R.id.eventDateAns);
+        eventDescription = layout.findViewById(R.id.eventDescriptionAns);
         streetAddress = layout.findViewById(R.id.streetAddressAns);
         town = layout.findViewById(R.id.townAns);
         state = layout.findViewById(R.id.stateAns);
@@ -58,47 +85,17 @@ public class EventsActivity extends AppCompatActivity {
 
 
 
-        String locationName ="1029 Jericho TPKE, Smithtown Ny";
-        LatLng myLocation = getLocationFromAddress(locationName);
-        if (myLocation != null){
-            System.out.println("The latitude and logitude for my address is" +  myLocation.getLatitude()+" longitude!! "+ myLocation.getLongitude() );
 
-        }
-        else{
-            System.out.println("location was null @!!!!!!!");
-        }
+
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
-        mapView.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(MapboxMap mapboxMap) {
-                MarkerOptions options = new MarkerOptions();
-                options.setTitle("commack");
-                options.setPosition(new LatLng(40.8428759,-73.2928943 ));
-                mapboxMap.addMarker(options);
-            }
-        });
 
-        mapView.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(MapboxMap mapboxMap) {
-                MarkerOptions options = new MarkerOptions();
-                options.setTitle("smithtown");
-                options.setPosition(new LatLng(40.855930, -73.200668 ));
-                mapboxMap.addMarker(options);
 
-            }
-        });
+
 
 }
 
-    private void addMarker(Location location, MapboxMap map) {
-        MarkerOptions options =  new MarkerOptions();
-        options.setTitle("commack");
-        options.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
-        map.addMarker(options);
 
-    }
 
     //This will create an Event object and added to the list of event and display a pin on the map
     public void saveEvent(View view) {
@@ -107,15 +104,34 @@ public class EventsActivity extends AppCompatActivity {
             Toast.makeText(this, "Please enter a full address!", Toast.LENGTH_SHORT).show();
             return;
         }
+        Event event = new Event();
+        event.setEventName(eventName.getText().toString());
+        event.setEventDate(eventDate.getText().toString());
+        event.setEventDescription(eventDescription.getText().toString());
+        list.add(event);
+
         StringBuilder address = new StringBuilder();
+
         address.append(streetAddress.getText().toString()).append(',').append(town.getText().toString()).append(',')
                 .append(state.getText().toString());
+
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(MapboxMap mapboxMap) {
                 LatLng location = getLocationFromAddress(address.toString());
                 MarkerOptions options = new MarkerOptions();
                 options.setTitle("event");
+
+                event.setLatitude(location.getLatitude());
+                event.setLongitude(location.getLongitude());
+
+             String id =   myRef.push().getKey();
+
+             event.setId(id);
+
+             myRef.child(id).setValue(event);
+                Toast.makeText(EventsActivity.this, "event added to db!", Toast.LENGTH_SHORT).show();
+
                 options.setPosition(location);
                 mapboxMap.addMarker(options);
             }
@@ -124,8 +140,8 @@ public class EventsActivity extends AppCompatActivity {
         eventButton.setVisibility(View.VISIBLE);
         layout.setVisibility(View.INVISIBLE);
 
-        // get adddress from all of the edit text and then some how get latitude and longitude
-        // with that call map.getAsyn to create a new marker and pass in the latitude and longitude
+        cleanAllFields();
+
 
 
 }
@@ -141,12 +157,48 @@ public class EventsActivity extends AppCompatActivity {
         mapView.setVisibility(View.INVISIBLE);
     }
 
-
+    public void cleanAllFields(){
+        eventName.getText().clear();
+        eventDate.getText().clear();
+        eventDescription.getText().clear();
+        streetAddress.getText().clear();
+        town.getText().clear();
+        state.getText().clear();
+    }
 
     @Override
     public void onStart() {
         super.onStart();
         mapView.onStart();
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                list.clear();
+
+                for(DataSnapshot Event: dataSnapshot.getChildren()){
+                    Event event = Event.getValue(Event.class);
+                    list.add(event);
+                }
+
+                for(Event i: list){
+                    mapView.getMapAsync(new OnMapReadyCallback() {
+                        @Override
+                        public void onMapReady(MapboxMap mapboxMap) {
+                            MarkerOptions options = new MarkerOptions();
+                            options.setTitle(i.getEventName());
+                            options.setPosition(new LatLng(i.getLatitude(),i.getLongitude()));
+                            mapboxMap.addMarker(options);
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
