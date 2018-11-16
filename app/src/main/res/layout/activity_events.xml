@@ -196,6 +196,16 @@
             android:onClick="saveEvent"
             android:text="Save"
             android:textStyle="bold"/>
+        <Button
+            android:id="@+id/DeleteButton"
+            android:layout_toRightOf="@id/saveButton"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="35dp"
+            android:text="Delete"
+            android:textStyle="bold"
+            android:layout_below="@+id/eventDescriptionAns"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <Button
             android:onClick="setCancelButton"

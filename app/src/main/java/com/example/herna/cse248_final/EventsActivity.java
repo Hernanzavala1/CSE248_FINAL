@@ -2,7 +2,6 @@ package com.example.herna.cse248_final;
 
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,9 +29,8 @@ import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
-public class EventsActivity extends AppCompatActivity {
+public class EventsActivity extends AppCompatActivity  implements  MapboxMap.OnMarkerClickListener{
 
     private MapView mapView;
     private Geocoder geocoder;
@@ -41,6 +39,7 @@ public class EventsActivity extends AppCompatActivity {
     private ImageButton eventButton;
     private Button cancelButton;
     private Button saveButton;
+    private Button deleteButton;
 
 
     // layout to add event
@@ -58,8 +57,14 @@ public class EventsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
        Mapbox.getInstance(EventsActivity.this, "pk.eyJ1IjoiemF2YWg5MSIsImEiOiJjam84NjNza2UxMmwzM3FwYmcydHdiZ2loIn0.gwLmml2xyFZOWIwlwL2phA");
         setContentView(R.layout.activity_events);
+        mapView = findViewById(R.id.mapView);
+        mapView.onCreate(savedInstanceState);
+
+
+
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
           myRef = database.getReference("Events");
@@ -69,11 +74,10 @@ public class EventsActivity extends AppCompatActivity {
 
 
 
-
-
         eventButton = findViewById(R.id.eventButton);
         cancelButton = findViewById(R.id.cancelButton);
         saveButton = findViewById(R.id.saveButton);
+        deleteButton = findViewById(R.id.DeleteButton);
         layout = findViewById(R.id.mainLayout);
         eventName = layout.findViewById(R.id.eventNameAnswer);
         eventDate = layout.findViewById(R.id.eventDateAns);
@@ -84,21 +88,79 @@ public class EventsActivity extends AppCompatActivity {
 
 
 
+    }
+
+    private void findEvent(Marker marker) {
+
+        Event eventFound = null;
+
+        for(Event event : list){
+           LatLng eventLocation = new LatLng();
+           eventLocation.setLatitude(event.getLatitude());
+           eventLocation.setLongitude(event.getLongitude());
+
+           if( eventLocation.getLongitude() == marker.getPosition().getLongitude() &&
+                   eventLocation.getLatitude() == marker.getPosition().getLatitude()){
+
+               eventFound = event;
+               break;
+           }
+        }
+        if( eventFound == null){
+            Toast.makeText(EventsActivity.this, "Event is not found! Error!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        displayEvent(eventFound, marker);
+
+    }
+
+    private void displayEvent(Event eventFound, Marker marker) {
+    deleteButton.setEnabled(true);
+    saveButton.setEnabled(false);
+
+    mapView.setVisibility(View.INVISIBLE);
+    eventButton.setVisibility(View.INVISIBLE);
+    layout.setVisibility(View.VISIBLE);
+
+    eventName.setText(eventFound.getEventName());
+    eventDate.setText(eventFound.getEventDate());
+    eventDescription.setText(eventFound.getEventDescription());
 
 
+    deleteButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            deleteEvent(eventFound, marker);
+        }
+    });
+    }
 
-        mapView = findViewById(R.id.mapView);
-        mapView.onCreate(savedInstanceState);
+    private void deleteEvent(Event eventFound, Marker marker) {
+     list.remove(eventFound);
+        myRef.child(eventFound.getId()).removeValue();
+        mapView.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(MapboxMap mapboxMap) {
+                mapboxMap.removeMarker(marker);
+            }
+        });
 
+       // update();
 
-
-
-}
-
+        Toast.makeText(this, "event deleted!", Toast.LENGTH_SHORT).show();
+        deleteButton.setEnabled(false);
+        layout.setVisibility(View.INVISIBLE);
+        mapView.setVisibility(View.VISIBLE);
+        eventButton.setVisibility(View.VISIBLE);
+        cleanAllFields();
+    }
 
 
     //This will create an Event object and added to the list of event and display a pin on the map
     public void saveEvent(View view) {
+
+        deleteButton.setEnabled(false);
+      //  saveButton.setEnabled(true);
 
         if(streetAddress.getText().length() < 0 || town.getText().length() < 0 || state.getText().length() < 0){
             Toast.makeText(this, "Please enter a full address!", Toast.LENGTH_SHORT).show();
@@ -108,7 +170,6 @@ public class EventsActivity extends AppCompatActivity {
         event.setEventName(eventName.getText().toString());
         event.setEventDate(eventDate.getText().toString());
         event.setEventDescription(eventDescription.getText().toString());
-        list.add(event);
 
         StringBuilder address = new StringBuilder();
 
@@ -136,6 +197,8 @@ public class EventsActivity extends AppCompatActivity {
                 mapboxMap.addMarker(options);
             }
         });
+        list.add(event);
+
         mapView.setVisibility(View.VISIBLE);
         eventButton.setVisibility(View.VISIBLE);
         layout.setVisibility(View.INVISIBLE);
@@ -145,6 +208,7 @@ public class EventsActivity extends AppCompatActivity {
 
 
 }
+
     public void setCancelButton(View view){
         layout.setVisibility(View.INVISIBLE);
         eventButton.setVisibility(View.VISIBLE);
@@ -152,6 +216,8 @@ public class EventsActivity extends AppCompatActivity {
     }
 
     public void addEvent(View view){
+        saveButton.setEnabled(true);
+        cleanAllFields();
         layout.setVisibility(View.VISIBLE);
         eventButton.setVisibility(View.INVISIBLE);
         mapView.setVisibility(View.INVISIBLE);
@@ -164,6 +230,44 @@ public class EventsActivity extends AppCompatActivity {
         streetAddress.getText().clear();
         town.getText().clear();
         state.getText().clear();
+    }
+
+
+
+
+    public void update(){
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                list.clear();
+
+                for(DataSnapshot Event: dataSnapshot.getChildren()){
+                    Event event = Event.getValue(Event.class);
+                    list.add(event);
+                }
+
+                for(Event i: list){
+                    mapView.getMapAsync(new OnMapReadyCallback() {
+                        @Override
+                        public void onMapReady(MapboxMap mapboxMap) {
+                            MarkerOptions options = new MarkerOptions();
+                            options.setTitle(i.getEventName());
+                            options.setPosition(new LatLng(i.getLatitude(),i.getLongitude()));
+                            mapboxMap.addMarker(options);
+
+
+                        }
+                    });
+                }
+                Toast.makeText(EventsActivity.this, "Map Updated!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -185,6 +289,7 @@ public class EventsActivity extends AppCompatActivity {
                     mapView.getMapAsync(new OnMapReadyCallback() {
                         @Override
                         public void onMapReady(MapboxMap mapboxMap) {
+                            mapboxMap.setOnMarkerClickListener(EventsActivity.this);
                             MarkerOptions options = new MarkerOptions();
                             options.setTitle(i.getEventName());
                             options.setPosition(new LatLng(i.getLatitude(),i.getLongitude()));
@@ -261,5 +366,11 @@ public class EventsActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return p1;
+    }
+
+    @Override
+    public boolean onMarkerClick(@NonNull Marker marker) {
+        findEvent(marker);
+        return true;
     }
 }
