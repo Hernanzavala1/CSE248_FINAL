@@ -17,19 +17,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".views.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegistrationActivity" />
-        <activity android:name=".HomePage" />
-        <activity android:name=".Weather" />
-        <activity android:name=".newsActivity" />
+        <activity android:name=".views.RegistrationActivity" />
+        <activity android:name=".views.HomePage" />
+        <activity android:name=".views.Weather" />
+        <activity android:name=".views.newsActivity" />
         <activity android:name=".News_RecyclerView_Adapter.webviewClass" />
-        <activity android:name=".EventsActivity"></activity>
+        <activity android:name=".views.EventsActivity"></activity>
     </application>
 
 </manifest>

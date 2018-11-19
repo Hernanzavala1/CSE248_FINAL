@@ -5,6 +5,8 @@
         app:showAsAction="never"
         android:icon="@drawable/ic_settings"
         ></item>
-    <item android:title="My Account"/>
-    <item android:title="log out"/>
+    <item android:title="My Account"
+        android:id="@+id/myAccount"/>
+    <item android:title="log out"
+        android:id="@+id/logOut"/>
 </menu>

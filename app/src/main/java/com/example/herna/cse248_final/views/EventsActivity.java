@@ -1,4 +1,4 @@
-package com.example.herna.cse248_final;
+package com.example.herna.cse248_final.views;
 
 import android.location.Address;
 import android.location.Geocoder;
@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.example.herna.cse248_final.R;
 import com.example.herna.cse248_final.eventModel.Event;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

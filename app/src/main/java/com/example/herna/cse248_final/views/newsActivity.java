@@ -1,4 +1,4 @@
-package com.example.herna.cse248_final;
+package com.example.herna.cse248_final.views;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -19,9 +19,11 @@ import android.widget.Toast;
 
 import com.example.herna.cse248_final.NewsModel.Article;
 import com.example.herna.cse248_final.NewsModel.News;
+import com.example.herna.cse248_final.NewsService;
 import com.example.herna.cse248_final.News_RecyclerView_Adapter.ItemClickListener;
 import com.example.herna.cse248_final.News_RecyclerView_Adapter.RecyclerViewAdapter;
 import com.example.herna.cse248_final.News_RecyclerView_Adapter.webviewClass;
+import com.example.herna.cse248_final.R;
 import com.example.herna.cse248_final.common.Common;
 import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.github.florent37.diagonallayout.DiagonalLayout;

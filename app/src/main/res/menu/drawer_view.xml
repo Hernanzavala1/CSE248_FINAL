@@ -8,23 +8,22 @@
         android:title="weather">
         <menu>
             <item android:title="Today!"
+                android:id="@+id/weather"
                 android:icon="@drawable/ic_weather_icon"                >
             </item>
-            <item android:title="Six day"
-                android:icon="@drawable/ic_weather_icon"                >
-            </item>
+
         </menu>
 
     </item>
+
     <item
 
         android:title="news">
+
         <menu>
-            <item android:title="local News"
-                android:icon="@drawable/ic_news"
-                >
-            </item>
-            <item android:title="Global News"
+            <item
+                android:id="@+id/News"
+                android:title="local News"
                 android:icon="@drawable/ic_news"
                 >
             </item>
@@ -34,9 +33,12 @@
 
     <item
         android:icon="@drawable/ic_news"
+        android:id="@+id/Events"
         android:title="Community Events">
     </item>
-    <item android:title="Log Out"
+    <item
+        android:id="@+id/LogOut"
+        android:title="Log Out"
         android:icon="@drawable/ic_settings"/>
 
 

@@ -1,4 +1,4 @@
-package com.example.herna.cse248_final;
+package com.example.herna.cse248_final.views;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -10,11 +10,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.herna.cse248_final.R;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -71,8 +73,13 @@ public class HomePage extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
-
-
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                itemSelected(menuItem);
+                return true;
+            }
+        });
             setHeaderInfo(user);
 
 
@@ -86,6 +93,25 @@ public class HomePage extends AppCompatActivity {
 
 
 
+    }
+
+    private void itemSelected(MenuItem menuItem) {
+        switch(menuItem.getItemId()){
+            case R.id.weather:
+                Intent intent = new Intent(HomePage.this, Weather.class);
+                startActivity(intent);
+                break;
+            case R.id.News:
+                Intent intent2 = new Intent(HomePage.this, newsActivity.class);
+                startActivity(intent2);
+                break;
+            case R.id.Events:
+                Intent intent3 = new Intent(this, EventsActivity.class);
+                startActivity(intent3);
+                break;
+
+
+        }
     }
 
     private void setProfilePictureUpdate() {
@@ -195,4 +221,25 @@ public class HomePage extends AppCompatActivity {
         Intent intent = new Intent(this, EventsActivity.class);
         startActivity(intent);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.logOut :
+                logOutUser();
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void logOutUser() {
+        Intent intent = new Intent(this, MainActivity.class);
+        mAuth.signOut();
+        startActivity(intent);
+        finish();
+    }
+
+
+
 }
