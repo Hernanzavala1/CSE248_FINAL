@@ -163,8 +163,7 @@ public class HomePage extends AppCompatActivity {
                         });
 
                     } else {
-                        // Handle failures
-                        // ...
+                      Toast.makeText(HomePage.this, "The picture was uploaded it, but failing to update user!", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
