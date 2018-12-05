@@ -34,21 +34,22 @@ public class HomePage extends AppCompatActivity {
     private static final int LOAD_IMAGE = 102;
 
     public TextView password;
-   public ImageView weatherView;
-   private ImageView newsView;
-   private  ImageView eventsView;
-   public NavigationView navigationView;
+    public ImageView weatherView;
+    private ImageView newsView;
+    private ImageView eventsView;
+    public NavigationView navigationView;
 
-   private ImageView profileImage;
-   private String profileImageURL;
-   private Uri uri;
+    private ImageView profileImage;
+    private String profileImageURL;
+    private Uri uri;
 
 
-   private View headerLayout;
+    private View headerLayout;
 
 
     private FirebaseAuth mAuth;
-   private FirebaseUser user;
+    private FirebaseUser user;
+    private StorageReference storage;
 
 
     //  private  FirebaseStorage storage;
@@ -61,15 +62,14 @@ public class HomePage extends AppCompatActivity {
         user = mAuth.getCurrentUser();
 
 
-
         //Hooking up the xml fields with java
         weatherView = findViewById(R.id.weatherView);
         newsView = findViewById(R.id.newsIcon);
         eventsView = findViewById(R.id.eventIcon);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        navigationView = (NavigationView)findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         headerLayout = navigationView.getHeaderView(0);
-        profileImage = (ImageView)headerLayout.findViewById(R.id.userProfilePic);
+        profileImage = (ImageView) headerLayout.findViewById(R.id.userProfilePic);
 
         setSupportActionBar(toolbar);
 
@@ -80,8 +80,7 @@ public class HomePage extends AppCompatActivity {
                 return true;
             }
         });
-            setHeaderInfo(user);
-
+        setHeaderInfo(user);
 
 
         profileImage.setOnClickListener(new View.OnClickListener() {
@@ -92,11 +91,10 @@ public class HomePage extends AppCompatActivity {
         });
 
 
-
     }
 
     private void itemSelected(MenuItem menuItem) {
-        switch(menuItem.getItemId()){
+        switch (menuItem.getItemId()) {
             case R.id.weather:
                 Intent intent = new Intent(HomePage.this, Weather.class);
                 startActivity(intent);
@@ -116,23 +114,43 @@ public class HomePage extends AppCompatActivity {
 
     private void setProfilePictureUpdate() {
         // this creates the intent to open all of the gallery pics
+
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent,"Select Profile Picture"), CHOOSE_IMAGE);
+        startActivityForResult(Intent.createChooser(intent, "Select Profile Picture"), CHOOSE_IMAGE);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == CHOOSE_IMAGE && resultCode == RESULT_OK && data != null && data.getData() != null){
-         uri = data.getData();
 
-         String path = "profilepics/"+ System.currentTimeMillis()+
-                 ".jpg";
-    StorageReference storage = FirebaseStorage.getInstance().getReference(path);
 
-         UploadTask uploadTask = storage.putFile(uri);
+        if (user.getPhotoUrl() != null) {
+            StorageReference pic = FirebaseStorage.getInstance().getReferenceFromUrl(user.getPhotoUrl().toString());
+            pic.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Toast.makeText(HomePage.this, "Old picture deleted!", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+        if (requestCode == CHOOSE_IMAGE && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            uri = data.getData();
+
+            String path = "profilepics/" + System.currentTimeMillis() + ".jpg";
+            storage = FirebaseStorage.getInstance().getReference(path);
+
+            UploadTask uploadTask = storage.putFile(uri); // if current code does not work could also do following call method getStorage().putFile(uri);
+
+            /*
+            public StorageReference getStorage(){
+             String path = "profilepics/" + System.currentTimeMillis() + ".jpg";
+        storage = FirebaseStorage.getInstance().getReference(path);
+        return storage;
+        }
+             */
+
             Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                 @Override
                 public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
@@ -163,27 +181,21 @@ public class HomePage extends AppCompatActivity {
                         });
 
                     } else {
-                      Toast.makeText(HomePage.this, "The picture was uploaded it, but failing to update user!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(HomePage.this, "The picture was uploaded it, but failing to update user!", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
-
-
-
-
-
 
 
         }
     }
 
     /**
-     *
      * @param user current user
      *             method loads all of the user information such as name, email address and profile picture
      */
 
-    private void setHeaderInfo( FirebaseUser user)  {
+    private void setHeaderInfo(FirebaseUser user) {
 
         TextView email = headerLayout.findViewById(R.id.email_User);
         TextView name = headerLayout.findViewById(R.id.name_User);
@@ -191,7 +203,7 @@ public class HomePage extends AppCompatActivity {
         System.out.println(user.getDisplayName());
         name.setText(user.getDisplayName());
         //System.out.println("USER PHOTO URI"+ user.getPhotoUrl().toString());
-        if(user.getPhotoUrl() != null) {
+        if (user.getPhotoUrl() != null) {
             Picasso.get().load(user.getPhotoUrl()).into(profileImage);
         }
 
@@ -200,23 +212,24 @@ public class HomePage extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater =getMenuInflater();
+        MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.toolbar_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
-    public void goToNewsPage(View v){
+    public void goToNewsPage(View v) {
         Intent intent = new Intent(HomePage.this, newsActivity.class);
         startActivity(intent);
     }
 
-    public void goToWeatherPage(View v){
+    public void goToWeatherPage(View v) {
 
         Intent intent = new Intent(HomePage.this, Weather.class);
         startActivity(intent);
 
     }
-    public void goToEventsPage(View view){
+
+    public void goToEventsPage(View view) {
         Intent intent = new Intent(this, EventsActivity.class);
         startActivity(intent);
     }
@@ -224,8 +237,8 @@ public class HomePage extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()){
-            case R.id.logOut :
+        switch (item.getItemId()) {
+            case R.id.logOut:
                 logOutUser();
 
         }
@@ -238,7 +251,6 @@ public class HomePage extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
 
 
 }

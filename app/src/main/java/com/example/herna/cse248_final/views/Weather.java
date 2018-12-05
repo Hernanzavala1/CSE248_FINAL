@@ -128,8 +128,8 @@ public class Weather extends AppCompatActivity {
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) ==
                 PackageManager.PERMISSION_GRANTED) {
 
-                locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-                  location = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
+            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            location = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
         } else {
             ActivityCompat.requestPermissions(Weather.this, new String[]{
                     Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_LOCATION);
