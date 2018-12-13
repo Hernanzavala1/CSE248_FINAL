@@ -106,7 +106,7 @@ public class RegistrationActivity extends Activity {
         user.updateProfile(profileChangeRequest).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-
+                Toast.makeText(RegistrationActivity.this, "User created!", Toast.LENGTH_SHORT).show();
             }
         });
     }

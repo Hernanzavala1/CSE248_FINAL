@@ -46,6 +46,8 @@ public class Weather extends AppCompatActivity {
     private TextView precipitation;
     private TextView windspeed_textview;
     private TextView current_temp;
+    private TextView weatherDesc;
+    private TextView city;
 
     private WeatherInfo mservice;
 
@@ -69,7 +71,8 @@ public class Weather extends AppCompatActivity {
         precipitation = findViewById(R.id.precipitation);
         windspeed_textview = findViewById(R.id.windspeed_textview);
         current_temp = findViewById(R.id.current_temp);
-
+        weatherDesc = findViewById(R.id.weatherdesc);
+        city = findViewById(R.id.city);
 
         setSupportActionBar(toolbar);
         setDate();
@@ -178,10 +181,12 @@ public class Weather extends AppCompatActivity {
         StringBuilder builder = new StringBuilder("https://openweathermap.org/img/w/");
         builder.append(weather.getWeather().get(0).getIcon()).append(".png");
         Picasso.get().load(String.valueOf(builder)).into(CurrentWeatherIcon);
-        hummidity.setText(String.valueOf(weather.main.getHumidity()));
-        precipitation.setText(String.valueOf(weather.main.getPressure()));
-        windspeed_textview.setText(String.valueOf(weather.wind.getSpeed()) + "mph");
-        current_temp.setText(String.valueOf((int) getFahrenheit(weather.main.getTemp())) + "°");
+        hummidity.setText(String.valueOf(weather.main.getHumidity()) +" % ");
+        precipitation.setText(String.valueOf(weather.main.getPressure())+ " mb");
+        windspeed_textview.setText(String.valueOf(weather.wind.getSpeed()) + " mph");
+        current_temp.setText(String.valueOf((int) getFahrenheit(weather.main.getTemp())) + "° F");
+        weatherDesc.setText(weather.weather.get(0).description);
+        city.setText(weather.getName());
     }
 
     private double getFahrenheit(double degreesKelvin) {

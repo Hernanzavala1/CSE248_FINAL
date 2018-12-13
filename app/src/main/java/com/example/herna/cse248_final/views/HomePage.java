@@ -38,6 +38,7 @@ public class HomePage extends AppCompatActivity {
     private ImageView newsView;
     private ImageView eventsView;
     private ImageView youtubePage;
+
     public NavigationView navigationView;
 
     private ImageView profileImage;
@@ -126,9 +127,9 @@ public class HomePage extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-
-        if (user.getPhotoUrl() != null) {
+         String defaultPic ="android.resource://com.example.herna.cse248_final/drawable/crazy_supra.jpg";
+             String userPhotoUrl = user.getPhotoUrl().toString();
+        if (userPhotoUrl != null && !userPhotoUrl.contains(defaultPic) ) {
             StorageReference pic = FirebaseStorage.getInstance().getReferenceFromUrl(user.getPhotoUrl().toString());
             pic.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
@@ -137,6 +138,7 @@ public class HomePage extends AppCompatActivity {
                 }
             });
         }
+
         if (requestCode == CHOOSE_IMAGE && resultCode == RESULT_OK && data != null && data.getData() != null) {
             uri = data.getData();
 
@@ -192,6 +194,12 @@ public class HomePage extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        setHeaderInfo(this.user);
+    }
+
     /**
      * @param user current user
      *             method loads all of the user information such as name, email address and profile picture
@@ -203,6 +211,7 @@ public class HomePage extends AppCompatActivity {
         TextView name = headerLayout.findViewById(R.id.name_User);
         email.setText(user.getEmail());
         System.out.println(user.getDisplayName());
+
         name.setText(user.getDisplayName());
         //System.out.println("USER PHOTO URI"+ user.getPhotoUrl().toString());
         if (user.getPhotoUrl() != null) {
