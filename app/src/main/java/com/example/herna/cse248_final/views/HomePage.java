@@ -37,6 +37,7 @@ public class HomePage extends AppCompatActivity {
     public ImageView weatherView;
     private ImageView newsView;
     private ImageView eventsView;
+    private ImageView youtubePage;
     public NavigationView navigationView;
 
     private ImageView profileImage;
@@ -65,6 +66,7 @@ public class HomePage extends AppCompatActivity {
         //Hooking up the xml fields with java
         weatherView = findViewById(R.id.weatherView);
         newsView = findViewById(R.id.newsIcon);
+        youtubePage = findViewById(R.id.youtubePage);
         eventsView = findViewById(R.id.eventIcon);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -245,6 +247,10 @@ public class HomePage extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void goToYoutubePage(View view){
+        Intent intent = new Intent(this, YoutubeActivity.class);
+        startActivity(intent);
+    }
     private void logOutUser() {
         Intent intent = new Intent(this, MainActivity.class);
         mAuth.signOut();

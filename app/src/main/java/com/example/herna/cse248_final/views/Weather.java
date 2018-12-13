@@ -2,10 +2,14 @@ package com.example.herna.cse248_final.views;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -47,7 +51,8 @@ public class Weather extends AppCompatActivity {
 
 
     LocationManager locationManager;
-    private Location location;
+    public Location location;
+    LocationListener listener;
     static final int REQUEST_LOCATION = 1;
 
     @Override
@@ -68,19 +73,78 @@ public class Weather extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         setDate();
-        // Location
 
 
-        location = getCurrentLocation();
 
-        if (location != null) {
-            setWeatherInformation(location);
-        } else {
-            Toast.makeText(this, "Location services not available. Please turn on Location!", Toast.LENGTH_SHORT).show();
-        }
+        //location = getCurrentLocation();
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        listener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                if (location != null) {
+                    setWeatherInformation(location);
+                } else {
+                    Toast.makeText(Weather.this, "Location services not available. Please turn on Location!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivity(intent);
+
+            }
+        };
+
+        getLocation();
+
+
+
+//        if (location != null) {
+//            setWeatherInformation(location);
+//        } else {
+//            Toast.makeText(this, "Location services not available. Please turn on Location!", Toast.LENGTH_SHORT).show();
+//        }
 
 
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case 10:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    getLocation();
+                }
+                break;
+        }
+    }
+
+    public void getLocation() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(new String[]{
+                        Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.INTERNET
+                }, 10);
+            }
+
+            return;
+        }
+        locationManager.requestLocationUpdates("gps", 5000, 0, listener);
+    }
+
+
 
     private void setWeatherInformation(Location location) {
         mservice = Common.weatherService();
@@ -89,7 +153,14 @@ public class Weather extends AppCompatActivity {
             @Override
             public void onResponse(Call<WeatherObject> call, Response<WeatherObject> response) {
                 WeatherObject weather = response.body();
-                setAllInfo(weather);
+                if(weather != null) {
+                    setAllInfo(weather);
+                }
+                else{
+                    Toast.makeText(Weather.this, "The response body is Null", Toast.LENGTH_SHORT).show();
+                 //   return;
+                }
+
             }
 
             @Override
@@ -120,39 +191,6 @@ public class Weather extends AppCompatActivity {
         DecimalFormat format = new DecimalFormat("##");
         format.format(f);
         return f;
-    }
-
-    private Location getCurrentLocation() {
-        Location location = null;
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) ==
-                PackageManager.PERMISSION_GRANTED) {
-
-            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            location = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
-        } else {
-            ActivityCompat.requestPermissions(Weather.this, new String[]{
-                    Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_LOCATION);
-            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            location = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
-        }
-        return location;
-    }
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_LOCATION) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Location Permission granted!",Toast.LENGTH_SHORT).show();
-
-            }
-
-        }
-        else{
-            Toast.makeText(this, "Location Permission denied!",Toast.LENGTH_SHORT).show();
-        }
     }
 
     @Override

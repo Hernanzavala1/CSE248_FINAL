@@ -217,10 +217,12 @@
                     android:weightSum="3">
 
                     <ImageView
+                        android:id="@+id/youtubePage"
                         android:layout_width="match_parent"
                         android:layout_height="69dp"
                         android:layout_weight="1"
                         android:padding="5dp"
+                        android:onClick="goToYoutubePage"
                         android:src="@drawable/trending_icon" />
 
                     <View

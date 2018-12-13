@@ -49,5 +49,8 @@ dependencies {
     // mapbox dependency
     implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:6.6.5'
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
+
+    // to make the youtube request to get the array of vid ids
+    implementation 'com.android.volley:volley:1.1.1'
 }
 apply plugin: 'com.google.gms.google-services'
