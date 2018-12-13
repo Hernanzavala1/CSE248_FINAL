@@ -144,7 +144,8 @@ public class Weather extends AppCompatActivity {
 
             return;
         }
-        locationManager.requestLocationUpdates("gps", 5000, 0, listener);
+        locationManager.requestLocationUpdates("gps", 3600000 , 0, listener);
+
     }
 
 

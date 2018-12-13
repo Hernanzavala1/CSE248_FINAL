@@ -3,7 +3,7 @@ package com.example.herna.cse248_final.YoutubePackage;
 import java.util.List;
 
 public class Snippet {
-    public DateTime publishedAt ;
+    public String publishedAt ;
     public String channelId;
     public String title ;
     public String description ;
@@ -15,11 +15,11 @@ public class Snippet {
     public Localized localized ;
     public String defaultAudioLanguage ;
 
-    public DateTime getPublishedAt() {
+    public String getPublishedAt() {
         return publishedAt;
     }
 
-    public void setPublishedAt(DateTime publishedAt) {
+    public void setPublishedAt(String publishedAt) {
         this.publishedAt = publishedAt;
     }
 
