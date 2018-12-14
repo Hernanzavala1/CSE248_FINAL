@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -15,6 +16,7 @@ import com.example.herna.cse248_final.R;
 import com.example.herna.cse248_final.YoutubePackage.Item;
 import com.example.herna.cse248_final.YoutubePackage.YoutubeModel;
 import com.example.herna.cse248_final.YoutubePackage.YoutubeService;
+import com.example.herna.cse248_final.YoutubeRecyclerAdapter.VideoClickListener;
 import com.example.herna.cse248_final.YoutubeRecyclerAdapter.YoutubeRecyclerAdapter;
 import com.example.herna.cse248_final.common.Common;
 import com.example.herna.cse248_final.retrofit.RetrofitClient;
@@ -54,8 +56,8 @@ public class YoutubeActivity extends YouTubeBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        recyclerView = findViewById(R.id.youtubeRecyclerView);
         setContentView(R.layout.activity_youtube);
+        recyclerView = findViewById(R.id.youtubeRecyclerView);
         service = Common.getYoutubeVids();
         service.getYoutubeService("snippet","mostPopular","5","US","AIzaSyCgygJ-AKJA601qwrTZdpCE6h9FfxPfK9Q").
                 enqueue(new Callback<YoutubeModel>() {
@@ -67,6 +69,7 @@ public class YoutubeActivity extends YouTubeBaseActivity {
                         videos = youtubeModel.items;
                         System.out.println(videos.size() +" is the amount of videos uo therre");
                         YoutubeRecyclerAdapter adapter = new YoutubeRecyclerAdapter(YoutubeActivity.this, videos);
+
                         recyclerView.setAdapter(adapter);
                         recyclerView.setLayoutManager(new LinearLayoutManager(YoutubeActivity.this));
                     }
@@ -87,6 +90,8 @@ public class YoutubeActivity extends YouTubeBaseActivity {
 
     }
 
+    }
+
 //    private void getYoutubeVideos() {
 //        String url ="https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=5&regionCode=US&key=AIzaSyC-lvL1gDtrcMd_FIAx8nyTDvGJFqZK1M4";
 //        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new com.android.volley.Response.Listener<JSONObject>() {
@@ -103,4 +108,4 @@ public class YoutubeActivity extends YouTubeBaseActivity {
 //        });
 //      mQueue.add(request);
 //    }
-}
+

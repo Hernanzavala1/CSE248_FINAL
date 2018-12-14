@@ -144,7 +144,7 @@ public class Weather extends AppCompatActivity {
 
             return;
         }
-        locationManager.requestLocationUpdates("gps", 3600000 , 0, listener);
+        locationManager.requestLocationUpdates("gps", 5000 , 0, listener);
 
     }
 
@@ -153,7 +153,7 @@ public class Weather extends AppCompatActivity {
     private void setWeatherInformation(Location location) {
         mservice = Common.weatherService();
         mservice.getWeatherService(String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude()),
-                "31f21d48a88fa7b189386b5c269966f3", "metric").enqueue(new Callback<WeatherObject>() {
+                "a74c38a495acdaab4391e31923495900", "metric").enqueue(new Callback<WeatherObject>() {
             @Override
             public void onResponse(Call<WeatherObject> call, Response<WeatherObject> response) {
                 WeatherObject weather = response.body();

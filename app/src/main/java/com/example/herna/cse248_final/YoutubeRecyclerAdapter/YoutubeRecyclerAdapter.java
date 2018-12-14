@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
+import android.widget.Toast;
 
 
 import com.example.herna.cse248_final.R;
@@ -22,11 +22,12 @@ public class YoutubeRecyclerAdapter extends RecyclerView.Adapter<YoutubeRecycler
 
     private List<Item>  videos;
     Context mContext;
-   //private  ItemClickListener itemClickListener;
+
 
     public YoutubeRecyclerAdapter( Context mContext,List<Item> videos) {
         this.videos = videos;
         this.mContext = mContext;
+
 
     }
 
@@ -43,13 +44,15 @@ public class YoutubeRecyclerAdapter extends RecyclerView.Adapter<YoutubeRecycler
         myViewHolder.view.initialize("AIzaSyCgygJ-AKJA601qwrTZdpCE6h9FfxPfK9Q", new YouTubePlayer.OnInitializedListener() {
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
+                System.out.println("we have loaded the video at position "+  i);
                 youTubePlayer.loadVideo(videos.get(i).id);
+                youTubePlayer.play();
             }
 
             @Override
             public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-
-            }
+                System.out.println("could not initilize video at position "+ i);
+                }
         });
 
         myViewHolder.vidTitle.setText(videos.get(i).snippet.title);
@@ -63,7 +66,9 @@ public class YoutubeRecyclerAdapter extends RecyclerView.Adapter<YoutubeRecycler
     }
 
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+
+
+    public class MyViewHolder extends RecyclerView.ViewHolder  {
         private YouTubePlayerView view;
         private TextView vidTitle;
         public MyViewHolder(@NonNull View itemView) {
@@ -72,6 +77,7 @@ public class YoutubeRecyclerAdapter extends RecyclerView.Adapter<YoutubeRecycler
             vidTitle = itemView.findViewById(R.id.videoTitle);
 
         }
+
 
 
     }
