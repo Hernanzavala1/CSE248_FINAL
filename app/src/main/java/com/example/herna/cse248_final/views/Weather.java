@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -35,7 +36,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Weather extends AppCompatActivity {
+public class Weather extends AppCompatActivity  {
     // Get reference to all views in the layout
     private TextView header;
     private TextView dateText;
@@ -78,9 +79,9 @@ public class Weather extends AppCompatActivity {
         setDate();
 
 
+        System.out.println("just before calling on the location");
 
-        //location = getCurrentLocation();
-        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         listener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
@@ -109,18 +110,12 @@ public class Weather extends AppCompatActivity {
             }
         };
 
+        System.out.println("just before calling the getLocation Method");
         getLocation();
 
-
-
-//        if (location != null) {
-//            setWeatherInformation(location);
-//        } else {
-//            Toast.makeText(this, "Location services not available. Please turn on Location!", Toast.LENGTH_SHORT).show();
-//        }
-
-
     }
+
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -133,6 +128,20 @@ public class Weather extends AppCompatActivity {
         }
     }
 
+//    public void getLocation() {
+//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            // TODO: Consider calling
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                requestPermissions(new String[]{
+//                        Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.INTERNET
+//                }, 10);
+//            }
+//
+//        }
+//        location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+//
+//    }
+
     public void getLocation() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -144,16 +153,32 @@ public class Weather extends AppCompatActivity {
 
             return;
         }
-        locationManager.requestLocationUpdates("gps", 5000 , 0, listener);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1800000, 1, (LocationListener) listener);
+        System.out.println("before the request single update method!!!!!!!!!");
+
 
     }
 
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        System.out.println("the on stop method has been called");
+        locationManager.removeUpdates(this.listener);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        System.out.println("the on Pause has been called !!!!");
+        locationManager.removeUpdates(this.listener);
+    }
 
     private void setWeatherInformation(Location location) {
         mservice = Common.weatherService();
+        System.out.println("entering request body!");
         mservice.getWeatherService(String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude()),
-                "a74c38a495acdaab4391e31923495900", "metric").enqueue(new Callback<WeatherObject>() {
+                "31f21d48a88fa7b189386b5c269966f3", "metric").enqueue(new Callback<WeatherObject>() {
             @Override
             public void onResponse(Call<WeatherObject> call, Response<WeatherObject> response) {
                 WeatherObject weather = response.body();
@@ -161,6 +186,7 @@ public class Weather extends AppCompatActivity {
                     setAllInfo(weather);
                 }
                 else{
+                    System.out.println("the object weather is null");
                     Toast.makeText(Weather.this, "The response body is Null", Toast.LENGTH_SHORT).show();
                  //   return;
                 }
@@ -214,6 +240,36 @@ public class Weather extends AppCompatActivity {
         dateText.setText(date2);
 
     }
+//
+//    @Override
+//    public void onLocationChanged(Location location) {
+//        System.out.println("inside the onlocation change method!!!");
+//        if (location != null) {
+//
+//            Toast.makeText(Weather.this,"we are getting a location", Toast.LENGTH_SHORT).show();
+//            setWeatherInformation(location);
+//        } else {
+//            System.out.println("location is not loading !!!!!!!!!!");
+//            Toast.makeText(Weather.this, "Location services not available. Please turn on Location!", Toast.LENGTH_SHORT).show();
+//        }
+//    }
+//
+//    @Override
+//    public void onStatusChanged(String provider, int status, Bundle extras) {
+//
+//    }
+//
+//    @Override
+//    public void onProviderEnabled(String provider) {
+//
+//    }
+//
+//    @Override
+//    public void onProviderDisabled(String provider) {
+//        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+//        startActivity(intent);
+//
+//    }
 }
 
 

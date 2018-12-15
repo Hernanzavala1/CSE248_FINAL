@@ -82,8 +82,7 @@ public class YoutubeActivity extends YouTubeBaseActivity {
                 });
 
 
-      //  mQueue = Volley.newRequestQueue(this);
-       // getYoutubeVideos();
+
 
 
 
