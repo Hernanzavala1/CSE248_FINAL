@@ -223,7 +223,16 @@
     </RelativeLayout>
 
     <ImageButton
+<<<<<<< HEAD
         android:src="@drawable/add_event_icon"
+=======
+<<<<<<< HEAD
+        android:src="@drawable/ic_add_black_24dp"
+=======
+        android:background="@drawable/oval"
+       android:src="@drawable/add_event_icon"
+>>>>>>> ebd76fd6ec263e56d28e4a280050d9d54b705ebd
+>>>>>>> ce28c1531c2604bcdc3bd45dbfc959b405d71f22
         android:onClick="addEvent"
         android:id="@+id/eventButton"
         android:visibility="visible"
@@ -235,7 +244,7 @@
         android:layout_marginEnd="35dp"
         android:layout_marginRight="35dp"
         android:layout_marginBottom="73dp"
-        android:background="@drawable/oval" />
+         />
 
 
 
