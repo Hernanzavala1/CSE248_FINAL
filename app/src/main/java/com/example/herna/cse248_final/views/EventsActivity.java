@@ -145,6 +145,7 @@ public class EventsActivity extends AppCompatActivity  implements  MapboxMap.OnM
             }
         });
     }
+<<<<<<< HEAD
 
     public Address getAddress(LatLng latLng){
         Geocoder coder = new Geocoder(this);
@@ -159,13 +160,75 @@ public class EventsActivity extends AppCompatActivity  implements  MapboxMap.OnM
             }
             location =address.get(0);
 
+=======
 
+    public Address getAddress(LatLng latLng){
+        Geocoder coder = new Geocoder(this);
+        List<Address> address;
+        Address location=null;
+        LatLng p1 = latLng;
+
+        try {
+            address = coder.getFromLocation(p1.getLatitude(),p1.getLongitude(), 5);
+            if (address==null) {
+                return null;
+            }
+            location =address.get(0);
+
+<<<<<<< HEAD
+
+=======
+    eventName.setText(eventFound.getEventName());
+    eventDate.setText(eventFound.getEventDate());
+    eventDescription.setText(eventFound.getEventDescription());
+    LatLng latLng = new LatLng();
+    latLng.setLatitude(eventFound.getLatitude());
+    latLng.setLongitude(eventFound.getLongitude());
+    Address address = getAddress(latLng);
+    if(address != null) {
+        String[] fullAddress = address.toString().split(",");
+        String[] streetAddress2 = fullAddress[0].split(":");
+        streetAddress.setText(streetAddress2[1]);
+        town.setText(fullAddress[1]);
+        state.setText(fullAddress[2].substring(0,3));
+    }
+>>>>>>> 87c69681e1589ac35a9e0a853eb8bad298ec79fa
 
         } catch (IOException e) {
             e.printStackTrace();
         }
         return location ;
+>>>>>>> ebd76fd6ec263e56d28e4a280050d9d54b705ebd
 
+<<<<<<< HEAD
+=======
+    public Address getAddress(LatLng latLng){
+        Geocoder coder = new Geocoder(this);
+        List<Address> address;
+        Address location=null;
+        LatLng p1 = latLng;
+
+<<<<<<< HEAD
+=======
+        try {
+            address = coder.getFromLocation(p1.getLatitude(),p1.getLongitude(), 5);
+            if (address==null) {
+                return null;
+            }
+           location =address.get(0);
+
+
+
+>>>>>>> ebd76fd6ec263e56d28e4a280050d9d54b705ebd
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return location ;
+
+<<<<<<< HEAD
+=======
+>>>>>>> 87c69681e1589ac35a9e0a853eb8bad298ec79fa
+>>>>>>> ebd76fd6ec263e56d28e4a280050d9d54b705ebd
     }
     private void deleteEvent(Event eventFound, Marker marker) {
         list.remove(eventFound);

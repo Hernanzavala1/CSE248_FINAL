@@ -50,6 +50,7 @@ public class newsActivity extends AppCompatActivity implements ItemClickListener
     private Spinner spinner;
 
     private List<Article> articles;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

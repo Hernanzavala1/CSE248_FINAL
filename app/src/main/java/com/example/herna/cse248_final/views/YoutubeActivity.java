@@ -94,6 +94,10 @@ public class YoutubeActivity extends YouTubeBaseActivity {
 
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> ebd76fd6ec263e56d28e4a280050d9d54b705ebd
 
 //    private void getYoutubeVideos() {
 //        String url ="https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=5&regionCode=US&key=AIzaSyC-lvL1gDtrcMd_FIAx8nyTDvGJFqZK1M4";

@@ -3,22 +3,57 @@
   <component name="WizardSettings">
     <option name="children">
       <map>
+<<<<<<< HEAD
         <entry key="vectorWizard">
+=======
+<<<<<<< HEAD
+        <entry key="vectorWizard">
+=======
+        <entry key="imageWizard">
+>>>>>>> 87c69681e1589ac35a9e0a853eb8bad298ec79fa
+>>>>>>> ebd76fd6ec263e56d28e4a280050d9d54b705ebd
           <value>
             <PersistentState>
               <option name="children">
                 <map>
+<<<<<<< HEAD
                   <entry key="vectorAssetStep">
+=======
+<<<<<<< HEAD
+                  <entry key="vectorAssetStep">
+=======
+                  <entry key="imageAssetPanel">
+>>>>>>> 87c69681e1589ac35a9e0a853eb8bad298ec79fa
+>>>>>>> ebd76fd6ec263e56d28e4a280050d9d54b705ebd
                     <value>
                       <PersistentState>
                         <option name="children">
                           <map>
+<<<<<<< HEAD
                             <entry key="clipartAsset">
+=======
+<<<<<<< HEAD
+                            <entry key="clipartAsset">
+=======
+                            <entry key="launcher">
+>>>>>>> 87c69681e1589ac35a9e0a853eb8bad298ec79fa
+>>>>>>> ebd76fd6ec263e56d28e4a280050d9d54b705ebd
                               <value>
                                 <PersistentState>
                                   <option name="values">
                                     <map>
+<<<<<<< HEAD
                                       <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_add_black_24dp.xml" />
+=======
+<<<<<<< HEAD
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_add_black_24dp.xml" />
+=======
+                                      <entry key="backgroundLayerName" value="ic_launcher_background" />
+                                      <entry key="foregroundImage" value="C:\Users\herna\Pictures\randomPics\addEventIcon.png" />
+                                      <entry key="foregroundLayerName" value="ic_launcher_foreground" />
+                                      <entry key="outputName" value="AddEventIcon" />
+>>>>>>> 87c69681e1589ac35a9e0a853eb8bad298ec79fa
+>>>>>>> ebd76fd6ec263e56d28e4a280050d9d54b705ebd
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -26,15 +61,28 @@
                             </entry>
                           </map>
                         </option>
+<<<<<<< HEAD
                         <option name="values">
                           <map>
                             <entry key="height" value="30" />
                             <entry key="outputName" value="ic_add_black_24dp" />
+=======
+<<<<<<< HEAD
+                        <option name="values">
+                          <map>
+                            <entry key="height" value="30" />
+                            <entry key="outputName" value="add_event_icon" />
+>>>>>>> ebd76fd6ec263e56d28e4a280050d9d54b705ebd
                             <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="C:\Users\herna" />
                             <entry key="width" value="30" />
                           </map>
                         </option>
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 87c69681e1589ac35a9e0a853eb8bad298ec79fa
+>>>>>>> ebd76fd6ec263e56d28e4a280050d9d54b705ebd
                       </PersistentState>
                     </value>
                   </entry>
