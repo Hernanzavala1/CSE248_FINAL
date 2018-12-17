@@ -66,12 +66,15 @@ public class YoutubeActivity extends YouTubeBaseActivity {
                         System.out.println("we are getting a response!!!!");
                         Toast.makeText(YoutubeActivity.this,"getting youtube service!", Toast.LENGTH_SHORT).show();
                         YoutubeModel youtubeModel = response.body();
-                        videos = youtubeModel.items;
-                        System.out.println(videos.size() +" is the amount of videos uo therre");
-                        YoutubeRecyclerAdapter adapter = new YoutubeRecyclerAdapter(YoutubeActivity.this, videos);
+                        if(youtubeModel != null) {
+                            videos = youtubeModel.items;
 
-                        recyclerView.setAdapter(adapter);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(YoutubeActivity.this));
+                            System.out.println(videos.size() + " is the amount of videos uo therre");
+                            YoutubeRecyclerAdapter adapter = new YoutubeRecyclerAdapter(YoutubeActivity.this, videos);
+
+                            recyclerView.setAdapter(adapter);
+                            recyclerView.setLayoutManager(new LinearLayoutManager(YoutubeActivity.this));
+                        }
                     }
 
                     @Override
@@ -89,8 +92,7 @@ public class YoutubeActivity extends YouTubeBaseActivity {
 
     }
 
-    }
-
+}
 //    private void getYoutubeVideos() {
 //        String url ="https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=5&regionCode=US&key=AIzaSyC-lvL1gDtrcMd_FIAx8nyTDvGJFqZK1M4";
 //        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new com.android.volley.Response.Listener<JSONObject>() {

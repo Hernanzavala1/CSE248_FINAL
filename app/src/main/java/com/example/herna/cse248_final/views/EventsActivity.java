@@ -59,7 +59,7 @@ public class EventsActivity extends AppCompatActivity  implements  MapboxMap.OnM
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-       Mapbox.getInstance(EventsActivity.this, "pk.eyJ1IjoiemF2YWg5MSIsImEiOiJjam84NjNza2UxMmwzM3FwYmcydHdiZ2loIn0.gwLmml2xyFZOWIwlwL2phA");
+        Mapbox.getInstance(EventsActivity.this, "pk.eyJ1IjoiemF2YWg5MSIsImEiOiJjam84NjNza2UxMmwzM3FwYmcydHdiZ2loIn0.gwLmml2xyFZOWIwlwL2phA");
         setContentView(R.layout.activity_events);
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
@@ -68,7 +68,7 @@ public class EventsActivity extends AppCompatActivity  implements  MapboxMap.OnM
 
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-          myRef = database.getReference("Events");
+        myRef = database.getReference("Events");
 
 
         list = new ArrayList<>();
@@ -96,16 +96,16 @@ public class EventsActivity extends AppCompatActivity  implements  MapboxMap.OnM
         Event eventFound = null;
 
         for(Event event : list){
-           LatLng eventLocation = new LatLng();
-           eventLocation.setLatitude(event.getLatitude());
-           eventLocation.setLongitude(event.getLongitude());
+            LatLng eventLocation = new LatLng();
+            eventLocation.setLatitude(event.getLatitude());
+            eventLocation.setLongitude(event.getLongitude());
 
-           if( eventLocation.getLongitude() == marker.getPosition().getLongitude() &&
-                   eventLocation.getLatitude() == marker.getPosition().getLatitude()){
+            if( eventLocation.getLongitude() == marker.getPosition().getLongitude() &&
+                    eventLocation.getLatitude() == marker.getPosition().getLatitude()){
 
-               eventFound = event;
-               break;
-           }
+                eventFound = event;
+                break;
+            }
         }
         if( eventFound == null){
             Toast.makeText(EventsActivity.this, "Event is not found! Error!", Toast.LENGTH_SHORT).show();
@@ -116,28 +116,59 @@ public class EventsActivity extends AppCompatActivity  implements  MapboxMap.OnM
     }
 
     private void displayEvent(Event eventFound, Marker marker) {
-    deleteButton.setEnabled(true);
-    saveButton.setEnabled(false);
+        deleteButton.setEnabled(true);
+        saveButton.setEnabled(false);
 
-    mapView.setVisibility(View.INVISIBLE);
-    eventButton.setVisibility(View.INVISIBLE);
-    layout.setVisibility(View.VISIBLE);
+        mapView.setVisibility(View.INVISIBLE);
+        eventButton.setVisibility(View.INVISIBLE);
+        layout.setVisibility(View.VISIBLE);
 
-    eventName.setText(eventFound.getEventName());
-    eventDate.setText(eventFound.getEventDate());
-    eventDescription.setText(eventFound.getEventDescription());
-
-
-    deleteButton.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            deleteEvent(eventFound, marker);
+        eventName.setText(eventFound.getEventName());
+        eventDate.setText(eventFound.getEventDate());
+        eventDescription.setText(eventFound.getEventDescription());
+        LatLng latLng = new LatLng();
+        latLng.setLatitude(eventFound.getLatitude());
+        latLng.setLongitude(eventFound.getLongitude());
+        Address address = getAddress(latLng);
+        if(address != null) {
+            String[] fullAddress = address.toString().split(",");
+            String[] streetAddress2 = fullAddress[0].split(":");
+            streetAddress.setText(streetAddress2[1].substring(1));
+            town.setText(fullAddress[1]);
+            state.setText(fullAddress[2].substring(0,3));
         }
-    });
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteEvent(eventFound, marker);
+            }
+        });
     }
 
+    public Address getAddress(LatLng latLng){
+        Geocoder coder = new Geocoder(this);
+        List<Address> address;
+        Address location=null;
+        LatLng p1 = latLng;
+
+        try {
+            address = coder.getFromLocation(p1.getLatitude(),p1.getLongitude(), 5);
+            if (address==null) {
+                return null;
+            }
+            location =address.get(0);
+
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return location ;
+
+    }
     private void deleteEvent(Event eventFound, Marker marker) {
-     list.remove(eventFound);
+        list.remove(eventFound);
         myRef.child(eventFound.getId()).removeValue();
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -146,7 +177,7 @@ public class EventsActivity extends AppCompatActivity  implements  MapboxMap.OnM
             }
         });
 
-       // update();
+        // update();
 
         Toast.makeText(this, "event deleted!", Toast.LENGTH_SHORT).show();
         deleteButton.setEnabled(false);
@@ -161,7 +192,7 @@ public class EventsActivity extends AppCompatActivity  implements  MapboxMap.OnM
     public void saveEvent(View view) {
 
         deleteButton.setEnabled(false);
-      //  saveButton.setEnabled(true);
+        //  saveButton.setEnabled(true);
 
         if(streetAddress.getText().length() < 0 || town.getText().length() < 0 || state.getText().length() < 0){
             Toast.makeText(this, "Please enter a full address!", Toast.LENGTH_SHORT).show();
@@ -187,11 +218,11 @@ public class EventsActivity extends AppCompatActivity  implements  MapboxMap.OnM
                 event.setLatitude(location.getLatitude());
                 event.setLongitude(location.getLongitude());
 
-             String id =   myRef.push().getKey();
+                String id =   myRef.push().getKey();
 
-             event.setId(id);
+                event.setId(id);
 
-             myRef.child(id).setValue(event);
+                myRef.child(id).setValue(event);
                 Toast.makeText(EventsActivity.this, "event added to db!", Toast.LENGTH_SHORT).show();
 
                 options.setPosition(location);
@@ -208,7 +239,7 @@ public class EventsActivity extends AppCompatActivity  implements  MapboxMap.OnM
 
 
 
-}
+    }
 
     public void setCancelButton(View view){
         layout.setVisibility(View.INVISIBLE);
@@ -360,7 +391,7 @@ public class EventsActivity extends AppCompatActivity  implements  MapboxMap.OnM
             location.getLongitude();
 
             p1 = new LatLng( (location.getLatitude()),
-                     (location.getLongitude()));
+                    (location.getLongitude()));
 
 
         } catch (IOException e) {

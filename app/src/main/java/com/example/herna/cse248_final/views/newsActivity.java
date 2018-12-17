@@ -57,13 +57,13 @@ public class newsActivity extends AppCompatActivity implements ItemClickListener
 
         // getting the news service
         newsService = Common.getNewsService();
-    recyclerView = findViewById(R.id.recyclerView);
-    kbv = findViewById(R.id.kbv);
-    swipeRefreshLayout = findViewById(R.id.swipeRefresh);
-    spinner  =(Spinner)findViewById(R.id.drop_Down_News_Source);
+        recyclerView = findViewById(R.id.recyclerView);
+        kbv = findViewById(R.id.kbv);
+        swipeRefreshLayout = findViewById(R.id.swipeRefresh);
+        spinner  =(Spinner)findViewById(R.id.drop_Down_News_Source);
         top_article_title = findViewById(R.id.top_article_title);
-    loadSpinner();
-    spinner.setOnItemSelectedListener(this);
+        loadSpinner();
+        spinner.setOnItemSelectedListener(this);
 
         // originally load from abc news and if user wants to change they can select from the list and reload the news
         // initialize the recycler
@@ -110,10 +110,18 @@ public class newsActivity extends AppCompatActivity implements ItemClickListener
 
                 articles = response.body().getArticles();
 
+                kbv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setTopArticleUrl(articles);
+                    }
+                });
+
                 articles.remove(0);
                 RecyclerViewAdapter adapter = new RecyclerViewAdapter(newsActivity.this, articles, newsActivity.this);
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(newsActivity.this));
+
             }
 
             @Override
@@ -123,40 +131,48 @@ public class newsActivity extends AppCompatActivity implements ItemClickListener
         });
     }
 
+    private void setTopArticleUrl(List<Article> articles) {
+        if(articles != null){
+            Intent intent = new Intent(newsActivity.this, webviewClass.class);
+            intent.putExtra("article_url", articles.get(0).getUrl());
+            startActivity(intent);
+        }
+    }
+
     @Override
     public void onClickListener(View view, int position) {
-    if(articles != null && view != null){
-        Intent intent = new Intent(newsActivity.this, webviewClass.class);
-        intent.putExtra("article_url", articles.get(position).getUrl());
-        startActivity(intent);
-    }
-    else{
-        Toast.makeText(this, "something went wrong in clickListener  method!", Toast.LENGTH_SHORT);
-    }
+        if(articles != null && view != null){
+            Intent intent = new Intent(newsActivity.this, webviewClass.class);
+            intent.putExtra("article_url", articles.get(position).getUrl());
+            startActivity(intent);
+        }
+        else{
+            Toast.makeText(this, "something went wrong in clickListener  method!", Toast.LENGTH_SHORT);
+        }
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-      switch (position){
-          case 0 :
-              Source = "cbs-news";
-              break;
-          case 1 :
-              Source = "espn";
-              break;
-          case 2:
-              Source ="cnn";
-              break;
-          case 3:
-              Source = "mtv-news";
-              break;
-          case 4:
-              Source = "nbc-news";
-              break;
-              default:
-                  Source ="abc-news";
-      }
-      loadNews(Source);
+        switch (position){
+            case 0 :
+                Source = "cbs-news";
+                break;
+            case 1 :
+                Source = "espn";
+                break;
+            case 2:
+                Source ="cnn";
+                break;
+            case 3:
+                Source = "mtv-news";
+                break;
+            case 4:
+                Source = "nbc-news";
+                break;
+            default:
+                Source ="abc-news";
+        }
+        loadNews(Source);
     }
 
     @Override

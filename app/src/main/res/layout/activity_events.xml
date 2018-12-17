@@ -223,6 +223,7 @@
     </RelativeLayout>
 
     <ImageButton
+        android:src="@drawable/add_event_icon"
         android:onClick="addEvent"
         android:id="@+id/eventButton"
         android:visibility="visible"

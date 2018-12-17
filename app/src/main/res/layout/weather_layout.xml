@@ -142,7 +142,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginStart="-15dp"
                     android:layout_marginTop="62dp"
-                    android:text="Precipitation:"
+                    android:text="Pressure:"
                     android:textColor="@color/WhiteTextColor"
                     android:textSize="17sp"
                     android:textStyle="bold" />
