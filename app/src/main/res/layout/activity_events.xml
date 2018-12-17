@@ -223,6 +223,7 @@
     </RelativeLayout>
 
     <ImageButton
+        android:src="@drawable/ic_add_black_24dp"
         android:onClick="addEvent"
         android:id="@+id/eventButton"
         android:visibility="visible"
