@@ -30,7 +30,7 @@
             android:layout_height="100dp"
             android:text="Trump will stajfejferfkrfkemf bla bla nla bla bla"
             android:textSize="18sp"
-            android:textStyle="normal" />
+            android:textStyle="bold" />
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>

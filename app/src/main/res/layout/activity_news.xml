@@ -43,8 +43,10 @@
                 android:layout_marginBottom="20dp"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:textColor="@color/WhiteTextColor"
                 android:textAlignment="center"/>
             <Spinner
+
                 android:id="@+id/drop_Down_News_Source"
                 android:layout_width="150dp"
                 android:layout_height="37dp"

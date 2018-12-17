@@ -86,6 +86,7 @@ public class Weather extends AppCompatActivity  {
             @Override
             public void onLocationChanged(Location location) {
                 if (location != null) {
+                    setDate();
                     setWeatherInformation(location);
                 } else {
                     Toast.makeText(Weather.this, "Location services not available. Please turn on Location!", Toast.LENGTH_SHORT).show();

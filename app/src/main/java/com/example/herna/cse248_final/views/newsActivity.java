@@ -110,10 +110,18 @@ public class newsActivity extends AppCompatActivity implements ItemClickListener
 
                 articles = response.body().getArticles();
 
+                kbv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setTopArticleUrl(articles);
+                    }
+                });
+
                 articles.remove(0);
                 RecyclerViewAdapter adapter = new RecyclerViewAdapter(newsActivity.this, articles, newsActivity.this);
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(newsActivity.this));
+
             }
 
             @Override
@@ -121,6 +129,14 @@ public class newsActivity extends AppCompatActivity implements ItemClickListener
                 Toast.makeText(newsActivity.this,"Something went wrong!!!", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void setTopArticleUrl(List<Article> articles) {
+        if(articles != null){
+            Intent intent = new Intent(newsActivity.this, webviewClass.class);
+            intent.putExtra("article_url", articles.get(0).getUrl());
+            startActivity(intent);
+        }
     }
 
     @Override

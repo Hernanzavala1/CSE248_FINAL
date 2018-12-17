@@ -66,12 +66,15 @@ public class YoutubeActivity extends YouTubeBaseActivity {
                         System.out.println("we are getting a response!!!!");
                         Toast.makeText(YoutubeActivity.this,"getting youtube service!", Toast.LENGTH_SHORT).show();
                         YoutubeModel youtubeModel = response.body();
-                        videos = youtubeModel.items;
-                        System.out.println(videos.size() +" is the amount of videos uo therre");
-                        YoutubeRecyclerAdapter adapter = new YoutubeRecyclerAdapter(YoutubeActivity.this, videos);
+                        if(youtubeModel != null) {
+                            videos = youtubeModel.items;
 
-                        recyclerView.setAdapter(adapter);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(YoutubeActivity.this));
+                            System.out.println(videos.size() + " is the amount of videos uo therre");
+                            YoutubeRecyclerAdapter adapter = new YoutubeRecyclerAdapter(YoutubeActivity.this, videos);
+
+                            recyclerView.setAdapter(adapter);
+                            recyclerView.setLayoutManager(new LinearLayoutManager(YoutubeActivity.this));
+                        }
                     }
 
                     @Override
