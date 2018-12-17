@@ -223,6 +223,8 @@
     </RelativeLayout>
 
     <ImageButton
+        android:background="@drawable/oval"
+       android:src="@drawable/add_event_icon"
         android:onClick="addEvent"
         android:id="@+id/eventButton"
         android:visibility="visible"
@@ -234,7 +236,7 @@
         android:layout_marginEnd="35dp"
         android:layout_marginRight="35dp"
         android:layout_marginBottom="73dp"
-        android:background="@drawable/oval" />
+         />
 
 
 
